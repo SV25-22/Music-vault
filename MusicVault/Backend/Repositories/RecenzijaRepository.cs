@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
+using MusicVault.Backend.BuildingBlocks.Storage;
+using MusicVault.Backend.Model;
 
-namespace MusicVault.Backend.Repositories {
-    public class RecenzijaRepository {
-    }
+namespace MusicVault.Backend.Repositories;
+
+public class RecenzijaRepository : SQLGenericRepository<Recenzija> {
+    public RecenzijaRepository(DbContext dbContext) : base(dbContext) { }
 }

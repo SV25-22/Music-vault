@@ -9,7 +9,6 @@
 
   <ItemGroup>
     <Folder Include="Backend\Exceptions\" />
-    <Folder Include="Frontend\" />
   </ItemGroup>
 
   <ItemGroup>
