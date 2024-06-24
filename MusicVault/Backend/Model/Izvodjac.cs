@@ -6,16 +6,16 @@ namespace MusicVault.Backend.Model;
 public class Izvodjac : IDAble {
     public string Opis { get; set; }
 
-    public List<Zanr> Zanrevi { get; }
+    public ICollection<Zanr> Zanrevi { get; }
 
-    public List<MultimedijalniSadrzaj.MultimedijalniSadrzaj> MultimedijalniSadrzaji { get; }
+    public ICollection<MultimedijalniSadrzaj.MultimedijalniSadrzaj> MultimedijalniSadrzaji { get; }
 
     public Izvodjac() { }
 
     public Izvodjac(string opis) {
         Opis = opis;
-        Zanrevi = new();
-        MultimedijalniSadrzaji = new();
+        Zanrevi = new List<Zanr>();
+        MultimedijalniSadrzaji = new List<MultimedijalniSadrzaj.MultimedijalniSadrzaj>();
     }
 
     public void DodajZanr(Zanr zanr) {

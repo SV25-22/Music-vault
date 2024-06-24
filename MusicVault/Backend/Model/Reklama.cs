@@ -4,13 +4,13 @@ using System.Collections.Generic;
 namespace MusicVault.Backend.Model;
 
 public class Reklama: IDAble {
-    public List<Izvodjac> Izvodjaci { get; }
-    public MultimedijalniSadrzaj.MultimedijalniSadrzaj MultimedijalniSadrzaj { get; }
+    public ICollection<Izvodjac> Izvodjaci { get; set; }
+    public MultimedijalniSadrzaj.MultimedijalniSadrzaj MultimedijalniSadrzaj { get; set; }
     public double Cena { get; }
     public Reklama() { }
 
     public Reklama(MultimedijalniSadrzaj.MultimedijalniSadrzaj multimedijalniSadrzaj, double cena) {
-        Izvodjaci = new();
+        Izvodjaci = new List<Izvodjac>();
         MultimedijalniSadrzaj = multimedijalniSadrzaj;
         Cena = cena;
     }
