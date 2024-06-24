@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MusicVault.Backend.BuildingBlocks.Controller;
+using MusicVault.Backend.Model;
+using MusicVault.Backend.Repositories;
 
-namespace MusicVault.Backend.Controllers {
-    public class ZanrController {
-    }
+namespace MusicVault.Backend.Controllers;
+public class ZanrController : GenericController<Zanr, ZanrRepository> {
+    public ZanrController(ZanrRepository repository) : base(repository) { }
 }

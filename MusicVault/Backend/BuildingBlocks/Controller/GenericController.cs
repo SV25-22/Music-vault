@@ -10,9 +10,9 @@ public abstract class GenericController<T, R>
     private readonly R repository;
     private readonly Subject Subject;
 
-    public GenericController(R repository, Subject subject) {
+    public GenericController(R repository) {
         this.repository = repository;
-        Subject = subject;
+        Subject = new Subject();
     }
 
     public void Subscribe(IObserver observer) {

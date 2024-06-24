@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MusicVault.Backend.BuildingBlocks.Controller;
+using MusicVault.Backend.Model;
+using MusicVault.Backend.Repositories;
 
-namespace MusicVault.Backend.Controllers {
-    public class RecenzijaController {
-    }
+namespace MusicVault.Backend.Controllers;
+public class RecenzijaController : GenericController<Recenzija, RecenzijaRepository> {
+    public RecenzijaController(RecenzijaRepository repository) : base(repository) { }
 }
