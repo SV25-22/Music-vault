@@ -1,5 +1,6 @@
 ﻿using MusicVault.Backend.BuildingBlocks.Storage;
 using MusicVault.Backend.Model.Enums;
+using System;
 
 namespace MusicVault.Backend.Model;
 
@@ -9,7 +10,7 @@ public class Korisnik : IDAble {
     public TipKorisnika Tip { get; set; }
     public string Mejl { get; set; }
     public string Telefon { get; set; }
-    public string GodRodjenja { get; set; }
+    public DateTime GodRodjenja { get; set; }
     public Pol Pol { get; set; }
     private string _lozinka;
     public string Lozinka { get { return _lozinka; } set { _lozinka = SifrujLozinku(value); } }
