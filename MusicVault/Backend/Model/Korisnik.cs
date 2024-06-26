@@ -10,17 +10,29 @@ public class Korisnik : IDAble {
     public TipKorisnika Tip { get; set; }
     public string Mejl { get; set; }
     public string Telefon { get; set; }
-    public DateTime GodRodjenja { get; set; }
+    public DateOnly GodRodjenja { get; set; }
     public Pol Pol { get; set; }
     private string _lozinka;
     public string Lozinka { get { return _lozinka; } set { _lozinka = SifrujLozinku(value); } }
     public bool Javni { get; set; }
 
-    private string SifrujLozinku(string lozinka) {
+    public static string SifrujLozinku(string lozinka) {
         return lozinka + "123"; // Primitivni algoritam sifrovanja
     }
 
     public bool ProveriLozinku(string lozinka) {
-        return lozinka + "123" == Lozinka;
+        return SifrujLozinku(lozinka) == Lozinka;
+    }
+
+    public Korisnik(string ime, string prezime, TipKorisnika tip, string mejl, string telefon, DateOnly godRodjenja, Pol pol, string lozinka, bool javni) {
+        Ime = ime;
+        Prezime = prezime;
+        Tip = tip;
+        Mejl = mejl;
+        Telefon = telefon;
+        GodRodjenja = godRodjenja;
+        Pol = pol;
+        Lozinka = SifrujLozinku(lozinka);
+        Javni = javni;
     }
 }
