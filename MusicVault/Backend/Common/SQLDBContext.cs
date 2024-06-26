@@ -31,6 +31,7 @@ public class SqlDbContext : DbContext {
     public DbSet<Izvodjac> Izvodjac { get; set; }
     public DbSet<Plejlista> Plejlista { get; set; }
     public DbSet<Glas> Glas { get; set; }
+    public DbSet<Glasanje> Glasanje { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
         if (!optionsBuilder.IsConfigured) {

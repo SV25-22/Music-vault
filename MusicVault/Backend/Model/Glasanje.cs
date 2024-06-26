@@ -1,7 +1,8 @@
-﻿using Microsoft.VisualBasic;
-using MusicVault.Backend.BuildingBlocks.Storage;
+﻿using MusicVault.Backend.BuildingBlocks.Storage;
+using MusicVault.Backend.Model.Enums;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MusicVault.Backend.Model;
 
@@ -10,8 +11,8 @@ public class Glasanje : IDAble {
     public DateOnly KrajGlasanja { get; set; }
     public bool Aktivno { get; set; }
     public string Naziv { get; set; }
-    public ICollection<Glas> Glasovi { get; set; }
-    public ICollection<MuzickiSadrzaj.MuzickiSadrzaj> OpcijeZaGlasanje { get; set; }
+    public virtual ICollection<Glas> Glasovi { get; set; }
+    public virtual ICollection<MuzickiSadrzaj.MuzickiSadrzaj> OpcijeZaGlasanje { get; set; }
 
     public Glasanje() { }
 
@@ -20,6 +21,8 @@ public class Glasanje : IDAble {
         KrajGlasanja = krajGlasanja;
         Aktivno = aktivno;
         Naziv = naziv;
+        Glasovi = new List<Glas>();
+        OpcijeZaGlasanje = new List<MuzickiSadrzaj.MuzickiSadrzaj>();
     }
 
     public void DodajGlas(Glas glas) {
@@ -28,5 +31,23 @@ public class Glasanje : IDAble {
 
     public void DodajOpcijuZaGlasanje(MuzickiSadrzaj.MuzickiSadrzaj muzickiSadrzaj) {
         OpcijeZaGlasanje.Add(muzickiSadrzaj);
+    }
+
+    public List<MuzickiSadrzaj.MuzickiSadrzaj> ObradaRezultata() {
+        Dictionary<MuzickiSadrzaj.MuzickiSadrzaj, int> histogramGlasanja = new Dictionary<MuzickiSadrzaj.MuzickiSadrzaj, int>();
+
+        foreach (Glas g in Glasovi) {
+            if (!histogramGlasanja.ContainsKey(g.MuzickiSadrzaj)) {
+                histogramGlasanja.Add(g.MuzickiSadrzaj, 0);
+            }
+
+            if (g.Korisnik.Tip == TipKorisnika.Urednik) {
+                histogramGlasanja[g.MuzickiSadrzaj] += Glas.VrednostGlasaUrednika;
+            } else if (g.Korisnik.Tip == TipKorisnika.Registrovani) {
+                histogramGlasanja[g.MuzickiSadrzaj] += Glas.VrednostGlasaKorisnika;
+            }
+        }
+
+        return histogramGlasanja.OrderBy(m => m.Value).Select(m => m.Key).ToList();
     }
 }

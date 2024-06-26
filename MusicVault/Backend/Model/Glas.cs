@@ -4,8 +4,10 @@ using System;
 namespace MusicVault.Backend.Model;
 
 public class Glas : IDAble {
-    public Korisnik Korisnik { get; set; }
-    public MuzickiSadrzaj.MuzickiSadrzaj MuzickiSadrzaj { get; set; }
+    public static int VrednostGlasaUrednika = 3;
+    public static int VrednostGlasaKorisnika = 1;
+    public virtual Korisnik Korisnik { get; set; }
+    public virtual MuzickiSadrzaj.MuzickiSadrzaj MuzickiSadrzaj { get; set; }
     public DateOnly Datum { get; }
     public int Ocena { get; set; }
 
