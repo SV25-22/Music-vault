@@ -4,8 +4,8 @@ namespace MusicVault.Backend.Model;
 
 public class Izvodi : IDAble {
     public string Uloga { get; }
-    public Izvodjac Izvodjac { get; }
-    public MuzickiSadrzaj.MuzickiSadrzaj MuzickiSadrzaj { get; }
+    public virtual Izvodjac Izvodjac { get; }
+    public virtual MuzickiSadrzaj.MuzickiSadrzaj MuzickiSadrzaj { get; }
 
     public Izvodi() { }
 

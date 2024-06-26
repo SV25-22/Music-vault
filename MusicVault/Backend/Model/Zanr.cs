@@ -3,7 +3,7 @@
 namespace MusicVault.Backend.Model;
 
 public class Zanr : IDAble {
-    public Zanr? NadZanr { get; set; }
+    public virtual Zanr? NadZanr { get; set; }
     public string Naziv { get; set; }
 
     public Zanr() { }

@@ -5,10 +5,8 @@ namespace MusicVault.Backend.Model;
 
 public class Izvodjac : IDAble {
     public string Opis { get; set; }
-
-    public ICollection<Zanr> Zanrevi { get; }
-
-    public ICollection<MultimedijalniSadrzaj.MultimedijalniSadrzaj> MultimedijalniSadrzaji { get; }
+    public virtual ICollection<Zanr> Zanrevi { get; }
+    public virtual ICollection<MultimedijalniSadrzaj.MultimedijalniSadrzaj> MultimedijalniSadrzaji { get; }
 
     public Izvodjac() { }
 

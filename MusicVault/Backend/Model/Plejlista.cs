@@ -5,8 +5,8 @@ namespace MusicVault.Backend.Model;
 
 public class Plejlista : IDAble {
     public string Naziv { get; set; }
-    public ICollection<MuzickiSadrzaj.MuzickiSadrzaj> MuzickiSadrzaji { get; set; }
-    public ICollection<Zanr> Zanrovi { get; set; }
+    public virtual ICollection<MuzickiSadrzaj.MuzickiSadrzaj> MuzickiSadrzaji { get; set; }
+    public virtual ICollection<Zanr> Zanrovi { get; set; }
 
     public Plejlista() { }
 

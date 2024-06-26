@@ -3,8 +3,8 @@
 namespace MusicVault.Backend.Model;
 
 public class Recenzija : IDAble {
-    public Korisnik? Korisnik { get; set; }
-    public MuzickiSadrzaj.MuzickiSadrzaj MuzickiSadrzaj { get; set; }
+    public virtual Korisnik? Korisnik { get; set; }
+    public virtual MuzickiSadrzaj.MuzickiSadrzaj MuzickiSadrzaj { get; set; }
     public int Ocena { get; set; }
     public string Opis { get; set; }
     public bool Objavljena { get; set; }

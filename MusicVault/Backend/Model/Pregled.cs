@@ -4,8 +4,8 @@ using System;
 namespace MusicVault.Backend.Model;
 
 public class Pregled : IDAble {
-    public Korisnik Korisnik { get; set; }
-    public MuzickiSadrzaj.MuzickiSadrzaj MuzickiSadrzaj { get; set; }
+    public virtual Korisnik Korisnik { get; set; }
+    public virtual MuzickiSadrzaj.MuzickiSadrzaj MuzickiSadrzaj { get; set; }
     public DateOnly Datum { get; set; }
 
     public Pregled() { }
