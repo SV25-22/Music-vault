@@ -5,5 +5,5 @@ using MusicVault.Backend.Model;
 namespace MusicVault.Backend.Repositories;
 
 public class IzvodjacRepository : SQLGenericRepository<Izvodjac> {
-    public IzvodjacRepository(DbContext dbContext) : base(dbContext) { }
+    public IzvodjacRepository(SqlDbContext dbContext) : base(dbContext) { }
 }

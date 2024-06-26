@@ -5,5 +5,5 @@ using MusicVault.Backend.Model;
 namespace MusicVault.Backend.Repositories;
 
 public class ZanrRepository : SQLGenericRepository<Zanr> {
-    public ZanrRepository(DbContext dbContext) : base(dbContext) { }
+    public ZanrRepository(SqlDbContext dbContext) : base(dbContext) { }
 }

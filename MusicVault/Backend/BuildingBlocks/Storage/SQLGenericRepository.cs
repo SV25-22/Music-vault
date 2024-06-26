@@ -5,10 +5,10 @@ using System.Linq;
 namespace MusicVault.Backend.BuildingBlocks.Storage;
 
 public abstract class SQLGenericRepository<T> where T : IDAble {
-    private readonly DbContext context;
+    protected readonly SqlDbContext context;
     private readonly DbSet<T> dbSet;
 
-    public SQLGenericRepository(DbContext dbContext) {
+    public SQLGenericRepository(SqlDbContext dbContext) {
         context = dbContext;
         dbSet = context.Set<T>();
     }
