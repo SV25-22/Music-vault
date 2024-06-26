@@ -21,6 +21,19 @@ public class KorisnikController : GenericController<Korisnik, KorisnikRepository
         return novKorisnik;
     }
 
+    // GUI Poziva ovu metodu samo sa validnim podacima
+    public Korisnik RegistrujUrednika(string ime, string prezime, string mejl,
+                                       string telefon, DateOnly godinaRodjenja,
+                                       Pol pol, string lozinka) {
+        Korisnik novUrednik = new Korisnik(ime, prezime, TipKorisnika.Urednik,
+                                            mejl, telefon, godinaRodjenja,
+                                            pol, lozinka, true);
+
+        repository.Add(novUrednik);
+
+        return novUrednik;
+    }
+
     public Korisnik? UlogujSe(string mejl, string lozinka) {
         return repository.KorisnikNaOsnovuKredencijala(mejl, lozinka);
     }
