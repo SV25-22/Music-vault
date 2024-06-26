@@ -21,6 +21,21 @@ namespace MusicVault.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("GlasanjeMuzickiSadrzaj", b =>
+                {
+                    b.Property<int>("GlasanjeId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("OpcijeZaGlasanjeId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("GlasanjeId", "OpcijeZaGlasanjeId");
+
+                    b.HasIndex("OpcijeZaGlasanjeId");
+
+                    b.ToTable("GlasanjeMuzickiSadrzaj");
+                });
+
             modelBuilder.Entity("IzvodjacMultimedijalniSadrzaj", b =>
                 {
                     b.Property<int>("IzvodjacId")
@@ -92,6 +107,9 @@ namespace MusicVault.Migrations
                     b.Property<DateOnly>("Datum")
                         .HasColumnType("date");
 
+                    b.Property<int?>("GlasanjeId")
+                        .HasColumnType("integer");
+
                     b.Property<int>("KorisnikId")
                         .HasColumnType("integer");
 
@@ -103,11 +121,40 @@ namespace MusicVault.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("GlasanjeId");
+
                     b.HasIndex("KorisnikId");
 
                     b.HasIndex("MuzickiSadrzajId");
 
                     b.ToTable("Glas");
+                });
+
+            modelBuilder.Entity("MusicVault.Backend.Model.Glasanje", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Aktivno")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateOnly>("KrajGlasanja")
+                        .HasColumnType("date");
+
+                    b.Property<string>("Naziv")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar");
+
+                    b.Property<DateOnly>("PocetakGlasanja")
+                        .HasColumnType("date");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Glasanje");
                 });
 
             modelBuilder.Entity("MusicVault.Backend.Model.Izvodi", b =>
@@ -485,6 +532,21 @@ namespace MusicVault.Migrations
                     b.HasDiscriminator().HasValue("Nastup");
                 });
 
+            modelBuilder.Entity("GlasanjeMuzickiSadrzaj", b =>
+                {
+                    b.HasOne("MusicVault.Backend.Model.Glasanje", null)
+                        .WithMany()
+                        .HasForeignKey("GlasanjeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MusicVault.Backend.Model.MuzickiSadrzaj.MuzickiSadrzaj", null)
+                        .WithMany()
+                        .HasForeignKey("OpcijeZaGlasanjeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("IzvodjacMultimedijalniSadrzaj", b =>
                 {
                     b.HasOne("MusicVault.Backend.Model.Izvodjac", null)
@@ -547,6 +609,10 @@ namespace MusicVault.Migrations
 
             modelBuilder.Entity("MusicVault.Backend.Model.Glas", b =>
                 {
+                    b.HasOne("MusicVault.Backend.Model.Glasanje", null)
+                        .WithMany("Glasovi")
+                        .HasForeignKey("GlasanjeId");
+
                     b.HasOne("MusicVault.Backend.Model.Korisnik", "Korisnik")
                         .WithMany()
                         .HasForeignKey("KorisnikId")
@@ -697,6 +763,11 @@ namespace MusicVault.Migrations
                         .HasForeignKey("ZanroviId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("MusicVault.Backend.Model.Glasanje", b =>
+                {
+                    b.Navigation("Glasovi");
                 });
 #pragma warning restore 612, 618
         }

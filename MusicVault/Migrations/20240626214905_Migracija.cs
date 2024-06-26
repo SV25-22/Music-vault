@@ -13,6 +13,22 @@ namespace MusicVault.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Glasanje",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    PocetakGlasanja = table.Column<DateOnly>(type: "date", nullable: false),
+                    KrajGlasanja = table.Column<DateOnly>(type: "date", nullable: false),
+                    Aktivno = table.Column<bool>(type: "boolean", nullable: false),
+                    Naziv = table.Column<string>(type: "varchar", maxLength: 255, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Glasanje", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Izvodjac",
                 columns: table => new
                 {
@@ -160,11 +176,17 @@ namespace MusicVault.Migrations
                     KorisnikId = table.Column<int>(type: "integer", nullable: false),
                     MuzickiSadrzajId = table.Column<int>(type: "integer", nullable: false),
                     Datum = table.Column<DateOnly>(type: "date", nullable: false),
-                    Ocena = table.Column<int>(type: "integer", nullable: false)
+                    Ocena = table.Column<int>(type: "integer", nullable: false),
+                    GlasanjeId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Glas", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Glas_Glasanje_GlasanjeId",
+                        column: x => x.GlasanjeId,
+                        principalTable: "Glasanje",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Glas_Korisnik_KorisnikId",
                         column: x => x.KorisnikId,
@@ -174,6 +196,30 @@ namespace MusicVault.Migrations
                     table.ForeignKey(
                         name: "FK_Glas_MuzickiSadrzaj_MuzickiSadrzajId",
                         column: x => x.MuzickiSadrzajId,
+                        principalTable: "MuzickiSadrzaj",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "GlasanjeMuzickiSadrzaj",
+                columns: table => new
+                {
+                    GlasanjeId = table.Column<int>(type: "integer", nullable: false),
+                    OpcijeZaGlasanjeId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GlasanjeMuzickiSadrzaj", x => new { x.GlasanjeId, x.OpcijeZaGlasanjeId });
+                    table.ForeignKey(
+                        name: "FK_GlasanjeMuzickiSadrzaj_Glasanje_GlasanjeId",
+                        column: x => x.GlasanjeId,
+                        principalTable: "Glasanje",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_GlasanjeMuzickiSadrzaj_MuzickiSadrzaj_OpcijeZaGlasanjeId",
+                        column: x => x.OpcijeZaGlasanjeId,
                         principalTable: "MuzickiSadrzaj",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -430,6 +476,11 @@ namespace MusicVault.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Glas_GlasanjeId",
+                table: "Glas",
+                column: "GlasanjeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Glas_KorisnikId",
                 table: "Glas",
                 column: "KorisnikId");
@@ -438,6 +489,11 @@ namespace MusicVault.Migrations
                 name: "IX_Glas_MuzickiSadrzajId",
                 table: "Glas",
                 column: "MuzickiSadrzajId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GlasanjeMuzickiSadrzaj_OpcijeZaGlasanjeId",
+                table: "GlasanjeMuzickiSadrzaj",
+                column: "OpcijeZaGlasanjeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Izvodi_IzvodjacId",
@@ -527,6 +583,9 @@ namespace MusicVault.Migrations
                 name: "Glas");
 
             migrationBuilder.DropTable(
+                name: "GlasanjeMuzickiSadrzaj");
+
+            migrationBuilder.DropTable(
                 name: "Izvodi");
 
             migrationBuilder.DropTable(
@@ -558,6 +617,9 @@ namespace MusicVault.Migrations
 
             migrationBuilder.DropTable(
                 name: "Recenzija");
+
+            migrationBuilder.DropTable(
+                name: "Glasanje");
 
             migrationBuilder.DropTable(
                 name: "Reklama");
