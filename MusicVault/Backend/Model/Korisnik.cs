@@ -32,7 +32,7 @@ public class Korisnik : IDAble {
         Telefon = telefon;
         GodRodjenja = godRodjenja;
         Pol = pol;
-        Lozinka = SifrujLozinku(lozinka);
+        _lozinka = SifrujLozinku(lozinka);
         Javni = javni;
     }
 }

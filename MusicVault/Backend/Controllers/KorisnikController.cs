@@ -9,9 +9,13 @@ public class KorisnikController : GenericController<Korisnik, KorisnikRepository
     public KorisnikController(KorisnikRepository repository) : base(repository) { }
 
     // GUI Poziva ovu metodu samo sa validnim podacima
-    public Korisnik RegistrujKorisnika(string ime, string prezime, string mejl, 
+    public Korisnik? RegistrujKorisnika(string ime, string prezime, string mejl, 
                                        string telefon, DateOnly godinaRodjenja,
                                        Pol pol, string lozinka) {
+        if (repository.MailPostoji(mejl)) {
+            return null;
+        }
+
         Korisnik novKorisnik = new Korisnik(ime, prezime, TipKorisnika.Registrovani, 
                                             mejl, telefon, godinaRodjenja,
                                             pol, lozinka, true);
@@ -22,9 +26,13 @@ public class KorisnikController : GenericController<Korisnik, KorisnikRepository
     }
 
     // GUI Poziva ovu metodu samo sa validnim podacima
-    public Korisnik RegistrujUrednika(string ime, string prezime, string mejl,
+    public Korisnik? RegistrujUrednika(string ime, string prezime, string mejl,
                                        string telefon, DateOnly godinaRodjenja,
                                        Pol pol, string lozinka) {
+        if (repository.MailPostoji(mejl)) {
+            return null;
+        }
+
         Korisnik novUrednik = new Korisnik(ime, prezime, TipKorisnika.Urednik,
                                             mejl, telefon, godinaRodjenja,
                                             pol, lozinka, true);
