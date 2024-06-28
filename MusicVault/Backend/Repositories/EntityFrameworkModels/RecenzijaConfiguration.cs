@@ -25,7 +25,7 @@ public class RecenzijaConfiguration : IEntityTypeConfiguration<Recenzija> {
             .IsRequired()
             .HasColumnType("boolean");
 
-        builder.HasOne(r => r.Korisnik)
+        builder.HasOne(r => r.Urednik)
             .WithMany();
 
         builder.HasOne(r => r.MuzickiSadrzaj)

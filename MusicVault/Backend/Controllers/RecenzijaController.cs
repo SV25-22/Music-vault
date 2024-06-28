@@ -1,5 +1,5 @@
 ﻿using MusicVault.Backend.BuildingBlocks.Controller;
-using MusicVault.Backend.Model;
+using MusicVault.Backend.Model.Recenzija;
 using MusicVault.Backend.Repositories;
 
 namespace MusicVault.Backend.Controllers;
