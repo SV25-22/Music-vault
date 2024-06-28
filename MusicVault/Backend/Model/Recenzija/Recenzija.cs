@@ -10,7 +10,37 @@ public class Recenzija : IDAble {
     public string Opis { get; set; }
     public bool Objavljena { get; set; }
     public StanjeRecenzije StanjeRecenzije { get; set; }
-    public Stanje Stanje { get; set; }
+    private Stanje _stanje;
+    public Stanje Stanje { 
+        get {
+            return _stanje;
+        }
+        set {
+            _stanje = value;
+            switch (_stanje) {
+                case Stanje.NaIzradi: {
+                    StanjeRecenzije = new NaIzradi(this);
+                    break;
+                }
+                case Stanje.NaOveri: {
+                    StanjeRecenzije = new NaOveri(this);
+                    break;
+                }
+                case Stanje.Objavljeno: {
+                    StanjeRecenzije = new Objavljeno(this);
+                    break;
+                }
+                case Stanje.Rezervisano: {
+                    StanjeRecenzije = new Rezervisano(this);
+                    break;
+                }
+                case Stanje.Arhivirano: {
+                    StanjeRecenzije = new Arhivirano(this);
+                    break;
+                }
+            }
+        }
+    }
 
     public Recenzija() { }
 
