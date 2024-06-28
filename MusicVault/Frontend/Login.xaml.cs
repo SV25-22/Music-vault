@@ -24,11 +24,7 @@ namespace MusicVault.Frontend {
         }
 
         private void Button_Click(object sender, RoutedEventArgs e) {
-            SqlDbContext sqlDbContext = new SqlDbContext();
-
-            KorisnikRepository korisnikRepository = new KorisnikRepository(sqlDbContext);
-
-            KorisnikController korisnikController = new KorisnikController(korisnikRepository);
+            KorisnikController korisnikController = new KorisnikController();
 
             if (korisnikController.RegistrujKorisnika("a", "b", "mail", "123", DateOnly.MinValue, Backend.Model.Enums.Pol.Musko, "123") == null) {
                 MessageBox.Show("Mail vec iskoristen");
