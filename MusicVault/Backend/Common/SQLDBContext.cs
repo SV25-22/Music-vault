@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using MusicVault.Backend.Model;
 using MusicVault.Backend.Model.MultimedijalniSadrzaj;
 using MusicVault.Backend.Model.MuzickiSadrzaj;
+using MusicVault.Backend.Model.Recenzija;
 using System.Reflection;
 
 public class SqlDbContext : DbContext {

@@ -5,36 +5,38 @@ using System.Linq;
 namespace MusicVault.Backend.BuildingBlocks.Storage;
 
 public abstract class SQLGenericRepository<T> where T : IDAble {
-    protected readonly SqlDbContext context;
-    private readonly DbSet<T> dbSet;
-
-    public SQLGenericRepository(SqlDbContext dbContext) {
-        context = dbContext;
-        dbSet = context.Set<T>();
-    }
+    public SQLGenericRepository() { }
 
     public T Add(T entity) {
-        dbSet.Add(entity);
-        context.SaveChanges();
-        return entity;
+        using (var context = new SqlDbContext()) {
+            context.Set<T>().Add(entity);
+            context.SaveChanges();
+            return entity;
+        }
     }
 
     public T? Get(int id) {
-        return dbSet.Find(id);
+        using (var context = new SqlDbContext()) {
+            return context.Set<T>().Find(id);
+        }
     }
 
     public List<T> GetAll() {
-        return dbSet.AsEnumerable().ToList();
+        using (var context = new SqlDbContext()) {
+            return context.Set<T>().AsEnumerable().ToList();
+        }
     }
 
     public T? Update(T entity) {
-        T? foundEntity = Get(entity.Id);
-        if (foundEntity == null) { return null; }
+        using (var context = new SqlDbContext()) {
+            T? foundEntity = context.Set<T>().Find(entity.Id);
+            if (foundEntity == null) { return null; }
 
-        context.Entry(foundEntity).State = EntityState.Detached;
-        context.Update(entity);
+            context.Set<T>().Entry(foundEntity).State = EntityState.Detached;
+            context.Set<T>().Update(entity);
 
-        context.SaveChanges();
-        return entity;
+            context.SaveChanges();
+            return entity;
+        }
     }
 }

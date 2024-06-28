@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
-using MusicVault.Backend.Model;
+using MusicVault.Backend.Model.Recenzija;
 
 namespace MusicVault.Backend.Courses.Repositories.EntityFrameworkConfigurations;
 
@@ -31,5 +31,11 @@ public class RecenzijaConfiguration : IEntityTypeConfiguration<Recenzija> {
         builder.HasOne(r => r.MuzickiSadrzaj)
             .WithMany()
             .IsRequired();
+
+        builder.Property(r => r.Stanje)
+            .IsRequired()
+            .HasColumnType("integer");
+
+        builder.Ignore(r => r.StanjeRecenzije);
     }
 }

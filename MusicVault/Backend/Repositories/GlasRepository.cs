@@ -5,5 +5,4 @@ using MusicVault.Backend.Model;
 namespace MusicVault.Backend.Repositories;
 
 public class GlasRepository : SQLGenericRepository<Glas> {
-    public GlasRepository(SqlDbContext dbContext) : base(dbContext) { }
 }

@@ -17,6 +17,9 @@ public class MuzickiSadrzajConfiguration : IEntityTypeConfiguration<MuzickiSadrz
             .HasMaxLength(255)
             .HasColumnType("varchar");
 
+        builder.Property(ms => ms.Objavljeno)
+            .HasColumnType("boolean");
+
         builder.HasMany(ms => ms.Zanrevi)
             .WithMany();
 
