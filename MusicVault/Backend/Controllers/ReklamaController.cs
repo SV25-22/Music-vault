@@ -4,5 +4,5 @@ using MusicVault.Backend.Repositories;
 
 namespace MusicVault.Backend.Controllers;
 public class ReklamaController : GenericController<Reklama, ReklamaRepository> {
-    public ReklamaController(ReklamaRepository repository) : base(repository) { }
+    public ReklamaController() { }
 }

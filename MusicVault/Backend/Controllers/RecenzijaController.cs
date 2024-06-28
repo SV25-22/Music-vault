@@ -4,5 +4,5 @@ using MusicVault.Backend.Repositories;
 
 namespace MusicVault.Backend.Controllers;
 public class RecenzijaController : GenericController<Recenzija, RecenzijaRepository> {
-    public RecenzijaController(RecenzijaRepository repository) : base(repository) { }
+    public RecenzijaController() { }
 }

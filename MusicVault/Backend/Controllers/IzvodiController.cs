@@ -4,5 +4,5 @@ using MusicVault.Backend.Repositories;
 
 namespace MusicVault.Backend.Controllers;
 public class IzvodiController : GenericController<Izvodi, IzvodiRepository> {
-    public IzvodiController(IzvodiRepository repository) : base(repository) { }
+    public IzvodiController() { }
 }

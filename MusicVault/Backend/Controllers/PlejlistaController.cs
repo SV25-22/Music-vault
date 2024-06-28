@@ -4,5 +4,5 @@ using MusicVault.Backend.Repositories;
 
 namespace MusicVault.Backend.Controllers;
 public class PlejlistaController : GenericController<Plejlista, PlejlistaRepository> {
-    public PlejlistaController(PlejlistaRepository repository) : base(repository) { }
+    public PlejlistaController() { }
 }

@@ -6,7 +6,7 @@ using System;
 
 namespace MusicVault.Backend.Controllers;
 public class KorisnikController : GenericController<Korisnik, KorisnikRepository> {
-    public KorisnikController(KorisnikRepository repository) : base(repository) { }
+    public KorisnikController() { }
 
     // GUI Poziva ovu metodu samo sa validnim podacima
     public Korisnik? RegistrujKorisnika(string ime, string prezime, string mejl, 
@@ -42,6 +42,7 @@ public class KorisnikController : GenericController<Korisnik, KorisnikRepository
         return novUrednik;
     }
 
+    // todo dodati proveru ako je tacan samo mail
     public Korisnik? UlogujSe(string mejl, string lozinka) {
         return repository.KorisnikNaOsnovuKredencijala(mejl, lozinka);
     }

@@ -4,5 +4,5 @@ using MusicVault.Backend.Repositories;
 
 namespace MusicVault.Backend.Controllers;
 public class PregledController : GenericController<Pregled, PregledRepository> {
-    public PregledController(PregledRepository repository) : base(repository) { }
+    public PregledController() { }
 }

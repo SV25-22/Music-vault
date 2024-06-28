@@ -4,5 +4,5 @@ using MusicVault.Backend.Repositories;
 
 namespace MusicVault.Backend.Controllers;
 public class ZanrController : GenericController<Zanr, ZanrRepository> {
-    public ZanrController(ZanrRepository repository) : base(repository) { }
+    public ZanrController() { }
 }

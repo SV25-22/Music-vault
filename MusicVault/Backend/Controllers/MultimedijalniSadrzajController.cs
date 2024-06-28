@@ -4,5 +4,5 @@ using MusicVault.Backend.Repositories;
 
 namespace MusicVault.Backend.Controllers;
 public class MultimedijalniSadrzajController : GenericController<MultimedijalniSadrzaj, MultimedijalniSadrzajRepository> {
-    public MultimedijalniSadrzajController(MultimedijalniSadrzajRepository repository) : base(repository) { }
+    public MultimedijalniSadrzajController() { }
 }

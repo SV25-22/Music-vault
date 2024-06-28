@@ -6,12 +6,12 @@ namespace MusicVault.Backend.BuildingBlocks.Controller;
 
 public abstract class GenericController<T, R> 
     where T: IDAble
-    where R: SQLGenericRepository<T> {
+    where R: SQLGenericRepository<T>, new() {
     protected readonly R repository;
     private readonly Subject Subject;
 
-    public GenericController(R repository) {
-        this.repository = repository;
+    public GenericController() {
+        repository = new R();
         Subject = new Subject();
     }
 
