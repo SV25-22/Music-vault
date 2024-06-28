@@ -5,6 +5,7 @@ namespace MusicVault.Backend.Model.MuzickiSadrzaj;
 
 public abstract class MuzickiSadrzaj : IDAble {
     public string Opis { get; set; }
+    public bool Objavljeno { get; set; }
     public virtual ICollection<MultimedijalniSadrzaj.MultimedijalniSadrzaj> MultimedijalniSadrzaji { get; set; }
     public virtual ICollection<MuzickiSadrzaj> MuzickiSadrzaji { get; set; }
     public virtual ICollection<Zanr> Zanrevi { get; set; }
