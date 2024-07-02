@@ -9,37 +9,29 @@ public class KorisnikController : GenericController<Korisnik, KorisnikRepository
     public KorisnikController() { }
 
     // GUI Poziva ovu metodu samo sa validnim podacima
-    public Korisnik? RegistrujKorisnika(string ime, string prezime, string mejl, 
-                                       string telefon, DateOnly godinaRodjenja,
-                                       Pol pol, string lozinka) {
-        if (repository.MailPostoji(mejl)) {
+    public Korisnik? RegistrujKorisnika(Korisnik korisnik) {
+        if (repository.MailPostoji(korisnik.Mejl)) {
             return null;
         }
 
-        Korisnik novKorisnik = new Korisnik(ime, prezime, TipKorisnika.Registrovani, 
-                                            mejl, telefon, godinaRodjenja,
-                                            pol, lozinka, true);
+        korisnik.Tip = TipKorisnika.Registrovani;
 
-        repository.Add(novKorisnik);
+        repository.Add(korisnik);
 
-        return novKorisnik;
+        return korisnik;
     }
 
     // GUI Poziva ovu metodu samo sa validnim podacima
-    public Korisnik? RegistrujUrednika(string ime, string prezime, string mejl,
-                                       string telefon, DateOnly godinaRodjenja,
-                                       Pol pol, string lozinka) {
-        if (repository.MailPostoji(mejl)) {
+    public Korisnik? RegistrujUrednika(Korisnik korisnik) {
+        if (repository.MailPostoji(korisnik.Mejl)) {
             return null;
         }
 
-        Korisnik novUrednik = new Korisnik(ime, prezime, TipKorisnika.Urednik,
-                                            mejl, telefon, godinaRodjenja,
-                                            pol, lozinka, true);
+        korisnik.Tip = TipKorisnika.Urednik;
 
-        repository.Add(novUrednik);
+        repository.Add(korisnik);
 
-        return novUrednik;
+        return korisnik;
     }
 
     // todo dodati proveru ako je tacan samo mail

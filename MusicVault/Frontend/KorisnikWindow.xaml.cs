@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace MusicVault.Frontend
 {
     /// <summary>
-    /// Interaction logic for Admin.xaml
+    /// Interaction logic for Korisnik.xaml
     /// </summary>
-    public partial class Admin : Window
+    public partial class KorisnikWindow : Window
     {
-        public Admin()
+        public KorisnikWindow()
         {
             InitializeComponent();
         }
