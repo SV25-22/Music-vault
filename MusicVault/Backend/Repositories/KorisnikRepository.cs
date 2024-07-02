@@ -10,7 +10,7 @@ public class KorisnikRepository : SQLGenericRepository<Korisnik> {
         try {
             using (var context = new SqlDbContext()) {
                 return context.Korisnik
-                .Where(k => k.Mejl == mejl && lozinka == k.Lozinka)
+                .Where(k => k.Mejl == mejl && Korisnik.SifrujLozinku(lozinka) == k.Lozinka)
                 .Single();
             }
         } catch (InvalidOperationException) {

@@ -2,7 +2,6 @@
 using MusicVault.Backend.Model;
 using MusicVault.Backend.Model.Enums;
 using MusicVault.Backend.Repositories;
-using System;
 
 namespace MusicVault.Backend.Controllers;
 public class KorisnikController : GenericController<Korisnik, KorisnikRepository> {
@@ -37,5 +36,10 @@ public class KorisnikController : GenericController<Korisnik, KorisnikRepository
     // todo dodati proveru ako je tacan samo mail
     public Korisnik? UlogujSe(string mejl, string lozinka) {
         return repository.KorisnikNaOsnovuKredencijala(mejl, lozinka);
+    }
+
+    public void BanujKorisnika(Korisnik korisnik) {
+        korisnik.Banovan = true;
+        repository.Update(korisnik);
     }
 }

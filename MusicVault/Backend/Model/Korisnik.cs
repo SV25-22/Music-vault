@@ -12,9 +12,9 @@ public class Korisnik : IDAble {
     public string Telefon { get; set; }
     public DateOnly GodRodjenja { get; set; }
     public Pol Pol { get; set; }
-    private string _lozinka;
-    public string Lozinka { get { return _lozinka; } set { _lozinka = value; } }
+    public string Lozinka { get; private set; }
     public bool Javni { get; set; }
+    public bool Banovan { get; set; }
 
     // todo iskoristiti ovo
     public static string SifrujLozinku(string lozinka) {
@@ -25,6 +25,10 @@ public class Korisnik : IDAble {
         return SifrujLozinku(lozinka) == Lozinka;
     }
 
+    public void PromeniLozinku(string lozinka) {
+        Lozinka = SifrujLozinku(lozinka);
+    }
+
     public Korisnik() {
         Ime = "";
         Prezime = "";
@@ -33,8 +37,9 @@ public class Korisnik : IDAble {
         Telefon = "";
         GodRodjenja = new DateOnly();
         Pol = Pol.Musko;
-        _lozinka = "";
+        Lozinka = "";
         Javni = false;
+        Banovan = false;
     }
 
     public Korisnik(string ime, string prezime, TipKorisnika tip, string mejl, string telefon, DateOnly godRodjenja, Pol pol, string lozinka, bool javni) {
@@ -45,7 +50,8 @@ public class Korisnik : IDAble {
         Telefon = telefon;
         GodRodjenja = godRodjenja;
         Pol = pol;
-        _lozinka = lozinka;
+        Lozinka = SifrujLozinku(lozinka);
         Javni = javni;
+        Banovan = false;
     }
 }

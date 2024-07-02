@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MusicVault.Migrations
 {
     [DbContext(typeof(SqlDbContext))]
-    [Migration("20240626214905_Migracija")]
+    [Migration("20240702190606_Migracija")]
     partial class Migracija
     {
         /// <inheritdoc />
@@ -214,7 +214,10 @@ namespace MusicVault.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("GodRodjenja")
+                    b.Property<bool>("Banovan")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateOnly>("GodRodjenja")
                         .HasColumnType("date");
 
                     b.Property<string>("Ime")
@@ -290,6 +293,9 @@ namespace MusicVault.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<bool>("Objavljeno")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("Opis")
                         .IsRequired()
                         .HasMaxLength(255)
@@ -352,16 +358,13 @@ namespace MusicVault.Migrations
                     b.ToTable("Pregled");
                 });
 
-            modelBuilder.Entity("MusicVault.Backend.Model.Recenzija", b =>
+            modelBuilder.Entity("MusicVault.Backend.Model.Recenzija.Recenzija", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("KorisnikId")
-                        .HasColumnType("integer");
 
                     b.Property<int>("MuzickiSadrzajId")
                         .HasColumnType("integer");
@@ -377,11 +380,17 @@ namespace MusicVault.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("varchar");
 
+                    b.Property<int>("Stanje")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("UrednikId")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("KorisnikId");
-
                     b.HasIndex("MuzickiSadrzajId");
+
+                    b.HasIndex("UrednikId");
 
                     b.ToTable("Recenzija");
                 });
@@ -515,6 +524,9 @@ namespace MusicVault.Migrations
                 {
                     b.HasBaseType("MusicVault.Backend.Model.MuzickiSadrzaj.MuzickiSadrzaj");
 
+                    b.Property<int>("Tip")
+                        .HasColumnType("integer");
+
                     b.HasDiscriminator().HasValue("Album");
                 });
 
@@ -528,9 +540,6 @@ namespace MusicVault.Migrations
             modelBuilder.Entity("MusicVault.Backend.Model.MuzickiSadrzaj.Nastup", b =>
                 {
                     b.HasBaseType("MusicVault.Backend.Model.MuzickiSadrzaj.MuzickiSadrzaj");
-
-                    b.Property<int>("Tip")
-                        .HasColumnType("integer");
 
                     b.HasDiscriminator().HasValue("Nastup");
                 });
@@ -671,21 +680,21 @@ namespace MusicVault.Migrations
                     b.Navigation("MuzickiSadrzaj");
                 });
 
-            modelBuilder.Entity("MusicVault.Backend.Model.Recenzija", b =>
+            modelBuilder.Entity("MusicVault.Backend.Model.Recenzija.Recenzija", b =>
                 {
-                    b.HasOne("MusicVault.Backend.Model.Korisnik", "Korisnik")
-                        .WithMany()
-                        .HasForeignKey("KorisnikId");
-
                     b.HasOne("MusicVault.Backend.Model.MuzickiSadrzaj.MuzickiSadrzaj", "MuzickiSadrzaj")
                         .WithMany()
                         .HasForeignKey("MuzickiSadrzajId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Korisnik");
+                    b.HasOne("MusicVault.Backend.Model.Korisnik", "Urednik")
+                        .WithMany()
+                        .HasForeignKey("UrednikId");
 
                     b.Navigation("MuzickiSadrzaj");
+
+                    b.Navigation("Urednik");
                 });
 
             modelBuilder.Entity("MusicVault.Backend.Model.Reklama", b =>

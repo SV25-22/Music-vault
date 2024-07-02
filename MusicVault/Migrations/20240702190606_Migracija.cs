@@ -52,10 +52,11 @@ namespace MusicVault.Migrations
                     Tip = table.Column<int>(type: "integer", nullable: false),
                     Mejl = table.Column<string>(type: "varchar", maxLength: 255, nullable: false),
                     Telefon = table.Column<string>(type: "varchar", maxLength: 255, nullable: false),
-                    GodRodjenja = table.Column<DateTime>(type: "date", nullable: false),
+                    GodRodjenja = table.Column<DateOnly>(type: "date", nullable: false),
                     Pol = table.Column<int>(type: "integer", nullable: false),
                     Lozinka = table.Column<string>(type: "varchar", maxLength: 255, nullable: false),
-                    Javni = table.Column<bool>(type: "boolean", nullable: false)
+                    Javni = table.Column<bool>(type: "boolean", nullable: false),
+                    Banovan = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -83,6 +84,7 @@ namespace MusicVault.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Opis = table.Column<string>(type: "varchar", maxLength: 255, nullable: false),
+                    Objavljeno = table.Column<bool>(type: "boolean", nullable: false),
                     Vrsta = table.Column<string>(type: "text", nullable: false),
                     Tip = table.Column<int>(type: "integer", nullable: true)
                 },
@@ -333,18 +335,19 @@ namespace MusicVault.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    KorisnikId = table.Column<int>(type: "integer", nullable: true),
+                    UrednikId = table.Column<int>(type: "integer", nullable: true),
                     MuzickiSadrzajId = table.Column<int>(type: "integer", nullable: false),
                     Ocena = table.Column<int>(type: "integer", nullable: false),
                     Opis = table.Column<string>(type: "varchar", maxLength: 255, nullable: false),
-                    Objavljena = table.Column<bool>(type: "boolean", nullable: false)
+                    Objavljena = table.Column<bool>(type: "boolean", nullable: false),
+                    Stanje = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Recenzija", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Recenzija_Korisnik_KorisnikId",
-                        column: x => x.KorisnikId,
+                        name: "FK_Recenzija_Korisnik_UrednikId",
+                        column: x => x.UrednikId,
                         principalTable: "Korisnik",
                         principalColumn: "Id");
                     table.ForeignKey(
@@ -556,14 +559,14 @@ namespace MusicVault.Migrations
                 column: "MuzickiSadrzajId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Recenzija_KorisnikId",
-                table: "Recenzija",
-                column: "KorisnikId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Recenzija_MuzickiSadrzajId",
                 table: "Recenzija",
                 column: "MuzickiSadrzajId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Recenzija_UrednikId",
+                table: "Recenzija",
+                column: "UrednikId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reklama_MultimedijalniSadrzajId",
