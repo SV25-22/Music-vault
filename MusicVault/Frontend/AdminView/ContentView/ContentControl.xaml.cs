@@ -1,12 +1,13 @@
-﻿using MusicVault.Backend.BuildingBlocks.Observer;
+﻿using MusicVault.Frontend.AdminView.ContentView.AddViews;
+using MusicVault.Backend.BuildingBlocks.Observer;
 using MusicVault.Frontend.AdminView.ContentView;
+using MusicVault.Backend.Model.MuzickiSadrzaj;
 using MusicVault.Backend.Controllers;
 using System.Collections.ObjectModel;
 using MusicVault.Frontend.DTO;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows;
-using MusicVault.Frontend.AdminView.ContentView.AddViews;
 
 namespace MusicVault.Frontend.AdminView;
 
@@ -68,7 +69,7 @@ public partial class ContentControl : UserControl, IObserver {
         if (TypeComboBox.SelectedValue.ToString() == "dela")
             new EditTrackWindow().Show();
         else if (TypeComboBox.SelectedValue.ToString() == "albumi")
-            new EditAlbumWindow().Show();
+            new EditAlbumWindow((Album)((SadrzajDTO)SadrzajDataGrid.SelectedValue).MuzickiSadrzaj, zanrController, izvodjacController, izvodiController, muzickiSadrzajController).Show();
         else if (TypeComboBox.SelectedValue.ToString() == "nastupi")
             new EditNastupWindow().Show();
         else if (TypeComboBox.SelectedValue.ToString() == "izvođači")
