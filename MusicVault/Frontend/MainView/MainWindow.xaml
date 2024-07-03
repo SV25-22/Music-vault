@@ -28,7 +28,7 @@
             <TabItem Header="Glasanje" Name="glasanjeTab" Visibility="Hidden">
 
             </TabItem>
-            <TabItem Header="Dodaj sadržaj i recenzije" Name="addContentTab" Visibility="Hidden">
+            <TabItem Header="Dodavanje sadržaja i recenzija" Name="addContentTab" Visibility="Hidden">
 
             </TabItem>
         </TabControl>
