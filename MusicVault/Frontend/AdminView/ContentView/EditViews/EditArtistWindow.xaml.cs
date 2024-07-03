@@ -13,12 +13,12 @@ public partial class EditArtistWindow : Window {
     private readonly IzvodjacController izvodjacController;
 
     public EditArtistWindow(Izvodjac izvodjac, ZanrController zanrController, IzvodjacController izvodjacController) {
-        zanrController.GetAll().ForEach(zanr => Zanrovi.Add(new() { Key = zanr.Naziv, Value = zanr, IsSelected = izvodjac.Zanrevi.Any(z => z.Id == zanr.Id) }));
+        zanrController.GetAll().ForEach(zanr => Zanrovi.Add(new() { Key = zanr.Naziv, Value = zanr, IsSelected = izvodjac.Zanrevi?.Any(z => z.Id == zanr.Id) ?? false }));
         this.izvodjacController = izvodjacController;
-        OpisTxtBox.Text = izvodjac.Opis;
         DataContext = this;
 
         InitializeComponent();
+        OpisTxtBox.Text = izvodjac.Opis;
     }
 
     private void Add_Click(object sender, RoutedEventArgs e) {
