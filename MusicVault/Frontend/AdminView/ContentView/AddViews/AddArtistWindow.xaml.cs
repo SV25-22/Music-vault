@@ -3,7 +3,6 @@ using System.Collections.ObjectModel;
 using MusicVault.Backend.Controllers;
 using System.Collections.Generic;
 using MusicVault.Backend.Model;
-using MusicVault.Frontend.DTO;
 using System.Windows;
 using System.Linq;
 
@@ -11,12 +10,10 @@ namespace MusicVault.Frontend.AdminView.ContentView.AddViews;
 
 public partial class AddArtistWindow : Window {
     public ObservableCollection<MultiSelectItem> Zanrovi { get; set; } = new();
-    public ObservableCollection<KorisnikDTO> Urednici { get; set; } = new();
     private readonly IzvodjacController izvodjacController;
 
-    public AddArtistWindow(KorisnikController korisnikController, ZanrController zanrController, IzvodjacController izvodjacController) {
+    public AddArtistWindow(ZanrController zanrController, IzvodjacController izvodjacController) {
         zanrController.GetAll().ForEach(zanr => Zanrovi.Add(new() { Key = zanr.Naziv, Value = zanr, IsSelected = false }));
-        korisnikController.GetUrednici().ForEach(urednik => Urednici.Add(new KorisnikDTO(urednik)));
         this.izvodjacController = izvodjacController;
         DataContext = this;
 
@@ -34,8 +31,6 @@ public partial class AddArtistWindow : Window {
 
         Izvodjac izvodjac = new(opis);
         zanrovi.ForEach(zanr => { if (zanr != null) izvodjac.DodajZanr(zanr); });
-
-        // dodavanje prazne recenzije
 
         // todo fiksan id, add problem
         izvodjacController.Add(izvodjac);

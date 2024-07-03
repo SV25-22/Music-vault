@@ -57,11 +57,11 @@ public partial class ContentControl : UserControl, IObserver {
         if (TypeComboBox.SelectedValue.ToString() == "dela")
             new AddTrackWindow().Show();
         else if (TypeComboBox.SelectedValue.ToString() == "albumi")
-            new AddAlbumWindow().Show();
+            new AddAlbumWindow(korisnikController, zanrController, izvodjacController, izvodiController, muzickiSadrzajController, recenzijaController).Show();
         else if (TypeComboBox.SelectedValue.ToString() == "nastupi")
             new AddNastupWindow().Show();
         else if (TypeComboBox.SelectedValue.ToString() == "izvođači")
-            new AddArtistWindow(korisnikController, zanrController, izvodjacController).Show();
+            new AddArtistWindow(zanrController, izvodjacController).Show();
     }
 
     private void SadrzajDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
@@ -72,7 +72,7 @@ public partial class ContentControl : UserControl, IObserver {
         else if (TypeComboBox.SelectedValue.ToString() == "nastupi")
             new EditNastupWindow().Show();
         else if (TypeComboBox.SelectedValue.ToString() == "izvođači")
-            new EditArtistWindow().Show();
+            new EditArtistWindow(((SadrzajDTO)SadrzajDataGrid.SelectedValue).Izvodjac, zanrController, izvodjacController).Show();
     }
 
     private void SearchTxtBox_TextChanged(object sender, TextChangedEventArgs e) => RefreshDataGrid();

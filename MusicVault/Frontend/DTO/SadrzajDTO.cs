@@ -12,6 +12,9 @@ public class SadrzajDTO {
     private string opis = "";
     public string Opis { get { return opis; } set { opis = value; OnPropertyChanged($"{nameof(Opis)}"); } }
 
+    public Izvodjac Izvodjac { get; set; }
+    public MuzickiSadrzaj MuzickiSadrzaj { get; set; }
+
     public string Error => "";
     public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -20,6 +23,7 @@ public class SadrzajDTO {
     public SadrzajDTO(MuzickiSadrzaj sadrzaj) {
         Id = sadrzaj.Id;
         Opis = sadrzaj.Opis;
+        MuzickiSadrzaj = sadrzaj;
         if (sadrzaj is Delo)
             Slika = new BitmapImage(new Uri("pack://application:,,,/Resources/track.png"));
         else if (sadrzaj is Album)
@@ -31,6 +35,7 @@ public class SadrzajDTO {
     public SadrzajDTO(Izvodjac izvodjac) {
         Id = izvodjac.Id;
         Opis = izvodjac.Opis;
+        Izvodjac = izvodjac;
         Slika = new BitmapImage(new Uri("pack://application:,,,/Resources/artist.png"));
     }
 

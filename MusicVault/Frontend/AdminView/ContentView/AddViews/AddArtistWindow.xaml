@@ -8,14 +8,13 @@
         mc:Ignorable="d"
         Title="Dodavanje izvođača" Height="350" Width="500" MinHeight="250" MinWidth="400" WindowStartupLocation="CenterScreen">
     <Grid>
-        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-59,-80,0,0">
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-59,-75,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
@@ -25,11 +24,8 @@
 
             <Label Grid.Row="1" Content="Žanrovi:" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Margin="0,0,5,0"/>
             <common:MultiselectControl x:Name="ZanrComboBox" Grid.Row="1" Grid.Column="1" Width="180" Height="24" Items="{Binding Zanrovi}"/>
-
-            <Label Grid.Row="2" Content="Urednik:" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Margin="0,0,5,0"/>
-            <ComboBox Name="UrednikComboBox" Grid.Row="2" Grid.Column="1" VerticalContentAlignment="Center" Width="180" Height="24" ItemsSource="{Binding Urednici}" SelectedIndex="0" DisplayMemberPath="ImePrezime"/>
         </Grid>
 
-        <Button Content="Dodaj izvođača" HorizontalAlignment="Center" Margin="0,130,0,0" VerticalAlignment="Center" Width="180" Height="34" Click="Add_Click"/>
+        <Button Content="Dodaj izvođača" HorizontalAlignment="Center" Margin="0,105,0,0" VerticalAlignment="Center" Width="180" Height="34" Click="Add_Click"/>
     </Grid>
 </Window>

@@ -7,16 +7,14 @@ public abstract class MuzickiSadrzaj : IDAble {
     public string Opis { get; set; }
     public bool Objavljeno { get; set; }
     public virtual ICollection<MultimedijalniSadrzaj.MultimedijalniSadrzaj> MultimedijalniSadrzaji { get; set; }
-    public virtual ICollection<MuzickiSadrzaj> MuzickiSadrzaji { get; set; }
-    public virtual ICollection<Zanr> Zanrevi { get; set; }
+    public virtual ICollection<MuzickiSadrzaj> MuzickiSadrzaji { get; set; } = new List<MuzickiSadrzaj>();
+    public virtual ICollection<Zanr> Zanrevi { get; set; } = new List<Zanr>();
 
     public MuzickiSadrzaj() { }
 
     public MuzickiSadrzaj(string opis) {
         Opis = opis;
         MultimedijalniSadrzaji = new List<MultimedijalniSadrzaj.MultimedijalniSadrzaj>();
-        MuzickiSadrzaji = new List<MuzickiSadrzaj>();
-        Zanrevi = new List<Zanr>();
     }
 
     public void DodajMultimedijalniSadrzaj(MultimedijalniSadrzaj.MultimedijalniSadrzaj multimedijalniSadrzaj) {
