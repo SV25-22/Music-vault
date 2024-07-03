@@ -56,7 +56,7 @@ public partial class ContentControl : UserControl, IObserver {
 
     private void AddContentBtn_Click(object sender, RoutedEventArgs e) {
         if (TypeComboBox.SelectedValue.ToString() == "dela")
-            new AddTrackWindow().Show();
+            new AddTrackWindow(korisnikController, zanrController, izvodjacController, izvodiController, muzickiSadrzajController, recenzijaController).Show();
         else if (TypeComboBox.SelectedValue.ToString() == "albumi")
             new AddAlbumWindow(korisnikController, zanrController, izvodjacController, izvodiController, muzickiSadrzajController, recenzijaController).Show();
         else if (TypeComboBox.SelectedValue.ToString() == "nastupi")
