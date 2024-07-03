@@ -50,8 +50,8 @@ public partial class AddNastupWindow : Window {
 
         Nastup nastup = new() { Opis = opis };
         zanrovi.ForEach(zanr => { if (zanr != null) nastup.DodajZanr(zanr); });
-        albumi.ForEach(album => { if (album != null) nastup.DodajMuzickiSadrzaj(album); });
         dela.ForEach(delo => { if (delo != null) nastup.DodajMuzickiSadrzaj(delo); });
+        albumi.ForEach(album => { if (album != null) nastup.DodajMuzickiSadrzaj(album); });
         izvodjaci.ForEach(izvodjac => { if (izvodjac != null) izvodiController.Add(new Izvodi("izvođač", izvodjac, nastup)); });
 
         // dodavanje prazne recenzije

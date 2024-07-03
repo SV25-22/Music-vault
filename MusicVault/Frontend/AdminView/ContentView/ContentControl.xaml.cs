@@ -71,7 +71,7 @@ public partial class ContentControl : UserControl, IObserver {
         else if (TypeComboBox.SelectedValue.ToString() == "albumi")
             new EditAlbumWindow((Album)((SadrzajDTO)SadrzajDataGrid.SelectedValue).MuzickiSadrzaj, zanrController, izvodjacController, izvodiController, muzickiSadrzajController).Show();
         else if (TypeComboBox.SelectedValue.ToString() == "nastupi")
-            new EditNastupWindow().Show();
+            new EditNastupWindow((Nastup)((SadrzajDTO)SadrzajDataGrid.SelectedValue).MuzickiSadrzaj, zanrController, izvodjacController, izvodiController, muzickiSadrzajController).Show();
         else if (TypeComboBox.SelectedValue.ToString() == "izvođači")
             new EditArtistWindow(((SadrzajDTO)SadrzajDataGrid.SelectedValue).Izvodjac, zanrController, izvodjacController).Show();
     }
