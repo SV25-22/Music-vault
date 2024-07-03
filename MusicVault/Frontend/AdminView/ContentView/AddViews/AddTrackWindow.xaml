@@ -32,7 +32,7 @@
             <common:MultiselectControl x:Name="IzvComboBox" Grid.Row="2" Grid.Column="1" Width="180" Height="24" Items="{Binding Izvodjaci}"/>
 
             <Label Grid.Row="3" Content="Albumi:" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Margin="0,0,5,0"/>
-            <common:MultiselectControl x:Name="AlbmComboBox" Grid.Row="3" Grid.Column="1" Width="180" Height="24" Items="{Binding Izvodjaci}"/>
+            <common:MultiselectControl x:Name="AlbmComboBox" Grid.Row="3" Grid.Column="1" Width="180" Height="24" Items="{Binding Albumi}"/>
 
             <Label Grid.Row="4" Content="Urednik:" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Margin="0,0,5,0"/>
             <ComboBox Name="UrednikComboBox" Grid.Row="4" Grid.Column="1" VerticalContentAlignment="Center" Width="180" Height="24" ItemsSource="{Binding Urednici}" SelectedIndex="0" DisplayMemberPath="ImePrezime"/>

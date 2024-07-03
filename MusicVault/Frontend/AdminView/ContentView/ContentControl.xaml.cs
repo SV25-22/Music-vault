@@ -67,7 +67,7 @@ public partial class ContentControl : UserControl, IObserver {
 
     private void SadrzajDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
         if (TypeComboBox.SelectedValue.ToString() == "dela")
-            new EditTrackWindow().Show();
+            new EditTrackWindow((Delo)((SadrzajDTO)SadrzajDataGrid.SelectedValue).MuzickiSadrzaj, zanrController, izvodjacController, izvodiController, muzickiSadrzajController).Show();
         else if (TypeComboBox.SelectedValue.ToString() == "albumi")
             new EditAlbumWindow((Album)((SadrzajDTO)SadrzajDataGrid.SelectedValue).MuzickiSadrzaj, zanrController, izvodjacController, izvodiController, muzickiSadrzajController).Show();
         else if (TypeComboBox.SelectedValue.ToString() == "nastupi")
