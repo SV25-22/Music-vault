@@ -60,7 +60,7 @@ public partial class ContentControl : UserControl, IObserver {
         else if (TypeComboBox.SelectedValue.ToString() == "albumi")
             new AddAlbumWindow(korisnikController, zanrController, izvodjacController, izvodiController, muzickiSadrzajController, recenzijaController).Show();
         else if (TypeComboBox.SelectedValue.ToString() == "nastupi")
-            new AddNastupWindow().Show();
+            new AddNastupWindow(korisnikController, zanrController, izvodjacController, izvodiController, muzickiSadrzajController, recenzijaController).Show();
         else if (TypeComboBox.SelectedValue.ToString() == "izvođači")
             new AddArtistWindow(zanrController, izvodjacController).Show();
     }
