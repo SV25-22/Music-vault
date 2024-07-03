@@ -1,8 +1,8 @@
-﻿using MusicVault.Backend.Model;
-using MusicVault.Backend.Model.Enums;
-using System;
-using System.ComponentModel;
+﻿using MusicVault.Backend.Model.Enums;
 using System.Text.RegularExpressions;
+using MusicVault.Backend.Model;
+using System.ComponentModel;
+using System;
 
 namespace MusicVault.Frontend.DTO;
 
@@ -24,17 +24,38 @@ public class KorisnikDTO : INotifyPropertyChanged, IDataErrorInfo {
     private string lozinka = "";
     public string Lozinka { get { return lozinka; } set { lozinka = value; OnPropertyChanged($"{nameof(Lozinka)}"); } }
     public bool Javni { get; set; }
+    public bool Banovan { get; set; }
+
+    public string ImePrezime { get { return Ime + " " + Prezime; } }
 
     public string Error => "";
     public event PropertyChangedEventHandler? PropertyChanged;
 
-    public KorisnikDTO() { }
+    public KorisnikDTO() {
+        Tip = TipKorisnika.Neregistrovani;
+        GodRodjenja = DateTime.Now.AddYears(-20);
+        Banovan = false;
+        Javni = false;
+    }
+
+    public KorisnikDTO(Korisnik korisnik) {
+        Id = korisnik.Id;
+        Ime = korisnik.Ime;
+        Prezime = korisnik.Prezime;
+        Tip = korisnik.Tip;
+        Mejl = korisnik.Mejl;
+        Telefon = korisnik.Telefon;
+        GodRodjenja = korisnik.GodRodjenja.ToDateTime(TimeOnly.MinValue);
+        Pol = korisnik.Pol;
+        Javni = korisnik.Javni;
+        Banovan = korisnik.Banovan;
+    }
 
     public Korisnik ToKorisnik() {
         return new Korisnik(
-            Ime, Prezime, TipKorisnika.Neregistrovani, 
-            Mejl, Telefon, new DateOnly(GodRodjenja.Year, GodRodjenja.Month, GodRodjenja.Day), 
-            Pol, lozinka, false);
+            Id, Ime, Prezime, Tip,
+            Mejl, Telefon, new DateOnly(GodRodjenja.Year, GodRodjenja.Month, GodRodjenja.Day),
+            Pol, lozinka, Javni, Banovan);
     }
 
     private readonly string[] _validatedProperties = {
