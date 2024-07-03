@@ -1,4 +1,6 @@
-﻿namespace MusicVault.Backend.Model.Recenzija;
+﻿using MusicVault.Backend.Common;
+
+namespace MusicVault.Backend.Model.Recenzija;
 
 public abstract class StanjeRecenzije {
     public Recenzija Recenzija { get; set; }
@@ -27,7 +29,8 @@ public class NaIzradi : StanjeRecenzije {
     public override void SlanjeNaOveru() {
         // 1. salji adminu poruku da se recenzija salje na overu - preko funkcije iz recenzije
         // 2. stavi da je aktuelno stanje recenzije na overi
-        Recenzija.SlanjeMaila("admin@todo.com", "Recenzija sa ID-jem " + Recenzija.Id + " se salje na overu.");
+        Email email = Email.Instance;
+        email.MejlOvereRecenzije(Recenzija.Id.ToString());
         Recenzija.PromeniStanje(Stanje.NaOveri);
     }
 
@@ -35,8 +38,9 @@ public class NaIzradi : StanjeRecenzije {
         // 1. trenutnom uredniku recenzije se salje mail da je oduzeta recenzija - preko funkcije iz recenzije
         // 2. novom uredniku se salje mail da je dobio - preko funkcije iz recenzije
         // 3. nov urednik (novUrendik) postaje urednik trenutne recenzije
-        Recenzija.SlanjeMaila("urednik@todo.com", "Recenzija sa ID-jem " + Recenzija.Id + " vam je oduzeta.");
-        Recenzija.SlanjeMaila("urednik@todo.com", "Recenzija sa ID-jem " + Recenzija.Id + " vam je dodeljena.");
+        Email email = Email.Instance;
+        email.MejlOduzimanjaRecenzije(Recenzija.Urednik.Ime, Recenzija.Urednik.Prezime, Recenzija.Id.ToString());
+        email.MejlDodeleRecenzije(novUrednik.Ime, novUrednik.Prezime, Recenzija.Id.ToString());
         Recenzija.AzurirajUrednika(novUrednik);
     }
 }
@@ -57,8 +61,9 @@ public class NaOveri : StanjeRecenzije {
         // 1. trenutnom uredniku recenzije se salje mail da je oduzeta recenzija - preko funkcije iz recenzije
         // 2. novom uredniku se salje mail da je dobio - preko funkcije iz recenzije
         // 3. nov urednik (novUrendik) postaje urednik trenutne recenzije
-        Recenzija.SlanjeMaila("urednik@todo.com", "Recenzija sa ID-jem " + Recenzija.Id + " vam je oduzeta.");
-        Recenzija.SlanjeMaila("urednik@todo.com", "Recenzija sa ID-jem " + Recenzija.Id + " vam je dodeljena.");
+        Email email = Email.Instance;
+        email.MejlOduzimanjaRecenzije(Recenzija.Urednik.Ime, Recenzija.Urednik.Prezime, Recenzija.Id.ToString());
+        email.MejlDodeleRecenzije(novUrednik.Ime, novUrednik.Prezime, Recenzija.Id.ToString());
         Recenzija.AzurirajUrednika(novUrednik);
         Recenzija.PromeniStanje(Stanje.NaIzradi);
     }
@@ -66,7 +71,9 @@ public class NaOveri : StanjeRecenzije {
     public override void Odbijanje() {
         // 1. salje se mail trenutnom uredniku koje izmene treba da napravi - preko funkcije iz recenzije
         // 2. stanje se menja NaIzradi
-        Recenzija.SlanjeMaila("urednik@todo.com", "Potrebno je namestiti te i te izmene za recenziju sa ID-jem " + Recenzija.Id);
+        Email email = Email.Instance;
+        //TODO opciono nek se nekako prosledi poruka ili salje na frontendu uz mejl ostalo je okej
+        //email.MejlOdbijanjaRecenzije(Recenzija.Urednik.Ime, Recenzija.Urednik.Prezime, Recenzija.Id.ToString(),"preporuka izmene");
         Recenzija.PromeniStanje(Stanje.NaIzradi);
     }
 
@@ -74,6 +81,8 @@ public class NaOveri : StanjeRecenzije {
         // 1. posaljemo mail uredniku da je recenzija odobrena - preko funkcije iz recenzije
         // 2. promenim stanje na objavljeno
         // 3. poziva objavi od recenzije
+        Email email = Email.Instance;
+        email.MejlObjaveRecenzije(Recenzija.Urednik.Ime, Recenzija.Urednik.Prezime, Recenzija.Id.ToString());
         Recenzija.SlanjeMaila("urednik@todo.com", "Recenzija sa ID-jem " + Recenzija.Id + " je odobrena");
         Recenzija.Objavi();
         Recenzija.PromeniStanje(Stanje.Objavljeno);
