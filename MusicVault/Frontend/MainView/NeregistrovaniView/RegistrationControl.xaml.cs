@@ -38,7 +38,6 @@ public partial class RegistrationControl : UserControl {
             return;
         }
 
-        // todo fiksan id, add problem
         if (korisnikController.RegistrujKorisnika(Korisnik.ToKorisnik()) is Korisnik korisnik && korisnik != null) {
             MessageBox.Show("Korisnik uspešno registrovan.", "Registracija uspešna", MessageBoxButton.OK, MessageBoxImage.Information);
             mainWindow?.UlogujKorisnika(korisnik);

@@ -55,7 +55,6 @@ public partial class EditUrednikWindow : Window {
         if (editing)
             return korisnikController.AzurirajKorisnika(urednik);
         else
-            // todo fiksan id, add problem
             return korisnikController.RegistrujUrednika(Urednik.ToKorisnik()) is Korisnik korisnik && korisnik != null;
     }
 
