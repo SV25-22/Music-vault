@@ -11,10 +11,12 @@ namespace MusicVault.Frontend.AdminView.ContentView;
 public partial class EditArtistWindow : Window {
     public ObservableCollection<MultiSelectItem> Zanrovi { get; set; } = new();
     private readonly IzvodjacController izvodjacController;
+    private readonly Izvodjac izvodjac;
 
     public EditArtistWindow(Izvodjac izvodjac, ZanrController zanrController, IzvodjacController izvodjacController) {
         zanrController.GetAll().ForEach(zanr => Zanrovi.Add(new() { Key = zanr.Naziv, Value = zanr, IsSelected = izvodjac.Zanrevi?.Any(z => z.Id == zanr.Id) ?? false }));
         this.izvodjacController = izvodjacController;
+        this.izvodjac = izvodjac;
         DataContext = this;
 
         InitializeComponent();
@@ -30,7 +32,8 @@ public partial class EditArtistWindow : Window {
             return;
         }
 
-        Izvodjac izvodjac = new(opis);
+        izvodjac.Opis = opis;
+        izvodjac.Zanrevi.Clear();
         zanrovi.ForEach(zanr => { if (zanr != null) izvodjac.DodajZanr(zanr); });
 
         // todo fiksan id, add problem
