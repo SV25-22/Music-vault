@@ -18,7 +18,6 @@ public class ZanrConfiguration : IEntityTypeConfiguration<Zanr> {
             .HasColumnType("varchar");
 
         builder.HasOne(z => z.NadZanr)
-            .WithMany()
-            .HasForeignKey("NadZanrID");
+            .WithOne();
     }
 }

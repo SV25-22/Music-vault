@@ -28,8 +28,7 @@ public partial class AddZanrWindow : Window {
             return;
         }
 
-        // todo fiksan id, add problem
-        zanrController.Add(new Zanr(nadzanr, naziv));
+        zanrController.DodajZanr(new Zanr(nadzanr, naziv));
         MessageBox.Show("Žanr uspešno dodat.", "Dodavanje uspešno", MessageBoxButton.OK, MessageBoxImage.Information);
         Close();
     }

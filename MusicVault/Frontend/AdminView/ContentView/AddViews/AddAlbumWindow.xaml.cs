@@ -50,10 +50,9 @@ public partial class AddAlbumWindow : Window {
         izvodjaci.ForEach(izvodjac => { if (izvodjac != null) izvodiController.Add(new Izvodi("izvođač", izvodjac, album)); });
 
         // dodavanje prazne recenzije
-        recenzijaController.Add(new Recenzija(((KorisnikDTO)UrednikComboBox.SelectedValue).ToKorisnik(), album, -1, "", false));
+        recenzijaController.DodajRecenziju(new Recenzija(((KorisnikDTO)UrednikComboBox.SelectedValue).ToKorisnik(), album, -1, "", false));
 
-        // todo fiksan id, add problem
-        muzickiSadrzajController.Add(album);
+        muzickiSadrzajController.DodajMuzickiSadrzaj(album);
         MessageBox.Show("Album uspešno dodat.", "Dodavanje uspešno", MessageBoxButton.OK, MessageBoxImage.Information);
         Close();
     }

@@ -51,10 +51,9 @@ public partial class AddTrackWindow : Window {
         izvodjaci.ForEach(izvodjac => { if (izvodjac != null) izvodiController.Add(new Izvodi("izvođač", izvodjac, delo)); });
 
         // dodavanje prazne recenzije
-        recenzijaController.Add(new Recenzija(((KorisnikDTO)UrednikComboBox.SelectedValue).ToKorisnik(), delo, -1, "", false));
+        recenzijaController.DodajRecenziju(new Recenzija(((KorisnikDTO)UrednikComboBox.SelectedValue).ToKorisnik(), delo, -1, "", false));
 
-        // todo fiksan id, add problem
-        muzickiSadrzajController.Add(delo);
+        muzickiSadrzajController.DodajMuzickiSadrzaj(delo);
         MessageBox.Show("Delo uspešno dodato.", "Dodavanje uspešno", MessageBoxButton.OK, MessageBoxImage.Information);
         Close();
     }

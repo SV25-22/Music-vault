@@ -39,10 +39,11 @@ public class SqlDbContext : DbContext {
             var connectionString = "Host=localhost;" +
                                    "Port=5432;" +
                                    "Database=MusicVault;" +
+                                   "Include Error Detail = true;" +
                                    "User Id = postgres;" +
                                    "Password=123;";
 
-            optionsBuilder.UseNpgsql(connectionString);
+            optionsBuilder.UseNpgsql(connectionString).LogTo(s => { System.Diagnostics.Debug.WriteLine(s); }).EnableDetailedErrors().EnableSensitiveDataLogging();
         }
     }
 

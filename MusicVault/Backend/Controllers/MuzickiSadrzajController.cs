@@ -12,4 +12,9 @@ public class MuzickiSadrzajController : GenericController<MuzickiSadrzaj, Muzick
     public List<Album> GetAlbumi(string search = "") => MuzickiSadrzajRepository.GetAlbumi(search);
 
     public List<Nastup> GetNastupi(string search = "") => MuzickiSadrzajRepository.GetNastupi(search);
+
+    public void DodajMuzickiSadrzaj(MuzickiSadrzaj entity) {
+        repository.Add(entity);
+        Subject.NotifyObservers();
+    }
 }
