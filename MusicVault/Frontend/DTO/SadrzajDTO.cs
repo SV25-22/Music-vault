@@ -1,14 +1,12 @@
 ﻿using MusicVault.Backend.Model.MuzickiSadrzaj;
-using System.Windows.Media.Imaging;
 using MusicVault.Backend.Model;
 using System.ComponentModel;
-using System;
 
 namespace MusicVault.Frontend.DTO;
 
 public class SadrzajDTO {
     public int Id { get; set; }
-    public BitmapImage Slika { get; set; }
+    public string Slika { get; set; }
     private string opis = "";
     public string Opis { get { return opis; } set { opis = value; OnPropertyChanged($"{nameof(Opis)}"); } }
 
@@ -25,18 +23,18 @@ public class SadrzajDTO {
         Opis = sadrzaj.Opis;
         MuzickiSadrzaj = sadrzaj;
         if (sadrzaj is Delo)
-            Slika = new BitmapImage(new Uri("pack://application:,,,/Resources/track.png"));
+            Slika = "pack://application:,,,/Resources/track.png";
         else if (sadrzaj is Album)
-            Slika = new BitmapImage(new Uri("pack://application:,,,/Resources/album.png"));
+            Slika = "pack://application:,,,/Resources/album.png";
         else if (sadrzaj is Nastup)
-            Slika = new BitmapImage(new Uri("pack://application:,,,/Resources/concert.png"));
+            Slika = "pack://application:,,,/Resources/concert.png";
     }
 
     public SadrzajDTO(Izvodjac izvodjac) {
         Id = izvodjac.Id;
         Opis = izvodjac.Opis;
         Izvodjac = izvodjac;
-        Slika = new BitmapImage(new Uri("pack://application:,,,/Resources/artist.png"));
+        Slika = "pack://application:,,,/Resources/artist.png";
     }
 
     private readonly string[] _validatedProperties = {
