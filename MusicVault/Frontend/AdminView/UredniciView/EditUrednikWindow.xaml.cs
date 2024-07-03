@@ -56,7 +56,7 @@ public partial class EditUrednikWindow : Window {
             return korisnikController.AzurirajKorisnika(urednik);
         else
             // todo fiksan id, add problem
-            return korisnikController.RegistrujKorisnika(Urednik.ToKorisnik()) is Korisnik korisnik && korisnik != null;
+            return korisnikController.RegistrujUrednika(Urednik.ToKorisnik()) is Korisnik korisnik && korisnik != null;
     }
 
     private void BirthdayPicker_PreviewTextInput(object sender, TextCompositionEventArgs e) {
