@@ -9,6 +9,7 @@ public abstract class MuzickiSadrzaj : IDAble {
     public virtual ICollection<MultimedijalniSadrzaj.MultimedijalniSadrzaj> MultimedijalniSadrzaji { get; set; }
     public virtual ICollection<MuzickiSadrzaj> MuzickiSadrzaji { get; set; } = new List<MuzickiSadrzaj>();
     public virtual ICollection<Zanr> Zanrevi { get; set; } = new List<Zanr>();
+    public virtual ICollection<Izvodjac> Izvodjaci { get; set; } = new List<Izvodjac>();
 
     public MuzickiSadrzaj() { }
 
@@ -27,5 +28,9 @@ public abstract class MuzickiSadrzaj : IDAble {
 
     public void DodajZanr(Zanr zanr) {
         Zanrevi.Add(zanr);
+    }
+
+    public void DodajIzvodjaca(Izvodjac izvodjac) {
+        Izvodjaci.Add(izvodjac);
     }
 }

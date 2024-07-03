@@ -12,7 +12,6 @@ public partial class LoginControl : UserControl {
     public KorisnikController korisnikController;
     public IzvodjacController izvodjacController;
     public GlasanjeController glasanjeController;
-    public IzvodiController izvodiController;
     public GlasController glasController;
     public ZanrController zanrController;
     private MainWindow? mainWindow;
@@ -28,7 +27,6 @@ public partial class LoginControl : UserControl {
         korisnikController = mainWindow?.korisnikController ?? new();
         izvodjacController = mainWindow?.izvodjacController ?? new();
         glasanjeController = mainWindow?.glasanjeController ?? new();
-        izvodiController = mainWindow?.izvodiController ?? new();
         glasController = mainWindow?.glasController ?? new();
         zanrController = mainWindow?.zanrController ?? new();
         DataContext = this;
@@ -39,7 +37,7 @@ public partial class LoginControl : UserControl {
     private void LoginButton_Click(object sender, RoutedEventArgs e) {
         if (korisnikController.UlogujSe(emailBox.Text, passwordBox.Password) is var korisnik && korisnik != null) {
             if (korisnik.Tip == TipKorisnika.Admin) {
-                AdminWindow adminWindow = new(korisnikController, muzickiSadrzajController, zanrController, recenzijaController, izvodjacController, izvodiController);
+                AdminWindow adminWindow = new(korisnikController, muzickiSadrzajController, zanrController, recenzijaController, izvodjacController);
                 adminWindow.Closed += ShowMe;
                 adminWindow.Show();
                 mainWindow?.Hide();

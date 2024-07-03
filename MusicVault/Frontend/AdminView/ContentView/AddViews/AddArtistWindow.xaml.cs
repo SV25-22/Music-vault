@@ -32,7 +32,6 @@ public partial class AddArtistWindow : Window {
         Izvodjac izvodjac = new(opis);
         zanrovi.ForEach(zanr => { if (zanr != null) izvodjac.DodajZanr(zanr); });
 
-        izvodjacController.Add(izvodjac);
         izvodjacController.DodajIzvodjaca(izvodjac);
         MessageBox.Show("Izvođač uspešno dodat.", "Dodavanje uspešno", MessageBoxButton.OK, MessageBoxImage.Information);
         Close();

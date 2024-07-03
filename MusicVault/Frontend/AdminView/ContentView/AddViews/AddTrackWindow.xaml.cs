@@ -19,16 +19,14 @@ public partial class AddTrackWindow : Window {
 
     private readonly MuzickiSadrzajController muzickiSadrzajController;
     private readonly RecenzijaController recenzijaController;
-    private readonly IzvodiController izvodiController;
 
-    public AddTrackWindow(KorisnikController korisnikController, ZanrController zanrController, IzvodjacController izvodjacController, IzvodiController izvodiController, MuzickiSadrzajController muzickiSadrzajController, RecenzijaController recenzijaController) {
+    public AddTrackWindow(KorisnikController korisnikController, ZanrController zanrController, IzvodjacController izvodjacController, MuzickiSadrzajController muzickiSadrzajController, RecenzijaController recenzijaController) {
         izvodjacController.GetAll().ForEach(izvodjac => Izvodjaci.Add(new() { Key = izvodjac.Opis, Value = izvodjac, IsSelected = false }));
         muzickiSadrzajController.GetAlbumi().ForEach(album => Albumi.Add(new() { Key = album.Opis, Value = album, IsSelected = false }));
         zanrController.GetAll().ForEach(zanr => Zanrovi.Add(new() { Key = zanr.Naziv, Value = zanr, IsSelected = false }));
         korisnikController.GetUrednici().ForEach(urednik => Urednici.Add(new KorisnikDTO(urednik)));
         this.muzickiSadrzajController = muzickiSadrzajController;
         this.recenzijaController = recenzijaController;
-        this.izvodiController = izvodiController;
         DataContext = this;
 
         InitializeComponent();
@@ -48,12 +46,12 @@ public partial class AddTrackWindow : Window {
         Delo delo = new() { Opis = opis };
         zanrovi.ForEach(zanr => { if (zanr != null) delo.DodajZanr(zanr); });
         albumi.ForEach(album => { if (album != null) delo.DodajMuzickiSadrzaj(album); });
-        izvodjaci.ForEach(izvodjac => { if (izvodjac != null) izvodiController.Add(new Izvodi("izvođač", izvodjac, delo)); });
+        izvodjaci.ForEach(izvodjac => { if (izvodjac != null) delo.DodajIzvodjaca(izvodjac); });
+        muzickiSadrzajController.DodajMuzickiSadrzaj(delo);
 
         // dodavanje prazne recenzije
         recenzijaController.DodajRecenziju(new Recenzija(((KorisnikDTO)UrednikComboBox.SelectedValue).ToKorisnik(), delo, -1, "", false));
 
-        muzickiSadrzajController.DodajMuzickiSadrzaj(delo);
         MessageBox.Show("Delo uspešno dodato.", "Dodavanje uspešno", MessageBoxButton.OK, MessageBoxImage.Information);
         Close();
     }

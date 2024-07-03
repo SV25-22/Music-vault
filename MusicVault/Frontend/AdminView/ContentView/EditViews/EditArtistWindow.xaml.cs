@@ -36,8 +36,7 @@ public partial class EditArtistWindow : Window {
         izvodjac.Zanrevi.Clear();
         zanrovi.ForEach(zanr => { if (zanr != null) izvodjac.DodajZanr(zanr); });
 
-        // todo fiksan id, add problem
-        izvodjacController.Update(izvodjac);
+        izvodjacController.UpdateIzvodjac(izvodjac);
         MessageBox.Show("Izvođač uspešno izmenjen.", "Izmena uspešna", MessageBoxButton.OK, MessageBoxImage.Information);
         Close();
     }

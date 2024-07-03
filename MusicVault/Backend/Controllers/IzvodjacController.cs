@@ -13,4 +13,13 @@ public class IzvodjacController : GenericController<Izvodjac, IzvodjacRepository
         repository.DodajIzvodjaca(entity);
         Subject.NotifyObservers();
     }
+
+    public Izvodjac GetIzvodjacEager(int id) {
+        return repository.GetIzvodjacEager(id);
+    }
+
+    public void UpdateIzvodjac(Izvodjac entity) {
+        repository.UpdateIzvodjac(entity);
+        Subject.NotifyObservers();
+    }
 }

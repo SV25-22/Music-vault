@@ -10,23 +10,22 @@ public partial class AdminWindow : Window, IObserver {
     public readonly KorisnikController korisnikController;
     public readonly IzvodjacController izvodjacController;
     //public readonly GlasanjeController glasanjeController;
-    public readonly IzvodiController izvodiController;
     //public readonly GlasController glasController;
     public readonly ZanrController zanrController;
 
     public AdminWindow(KorisnikController korisnikController, MuzickiSadrzajController muzickiSadrzajController, ZanrController zanrController,
-                       RecenzijaController recenzijaController, IzvodjacController izvodjacController, IzvodiController izvodiController) {
+                       RecenzijaController recenzijaController, IzvodjacController izvodjacController) {
         this.muzickiSadrzajController = muzickiSadrzajController;
         this.recenzijaController = recenzijaController;
         this.korisnikController = korisnikController;
         this.izvodjacController = izvodjacController;
-        this.izvodiController = izvodiController;
         this.zanrController = zanrController;
         DataContext = this;
 
         muzickiSadrzajController.Subscribe(this);
         korisnikController.Subscribe(this);
         zanrController.Subscribe(this);
+        izvodjacController.Subscribe(this);
         InitializeComponent();
     }
 

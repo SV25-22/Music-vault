@@ -21,15 +21,13 @@ public partial class AddAlbumWindow : Window {
 
     private readonly MuzickiSadrzajController muzickiSadrzajController;
     private readonly RecenzijaController recenzijaController;
-    private readonly IzvodiController izvodiController;
 
-    public AddAlbumWindow(KorisnikController korisnikController, ZanrController zanrController, IzvodjacController izvodjacController, IzvodiController izvodiController, MuzickiSadrzajController muzickiSadrzajController, RecenzijaController recenzijaController) {
+    public AddAlbumWindow(KorisnikController korisnikController, ZanrController zanrController, IzvodjacController izvodjacController, MuzickiSadrzajController muzickiSadrzajController, RecenzijaController recenzijaController) {
         izvodjacController.GetAll().ForEach(izvodjac => Izvodjaci.Add(new() { Key = izvodjac.Opis, Value = izvodjac, IsSelected = false }));
         zanrController.GetAll().ForEach(zanr => Zanrovi.Add(new() { Key = zanr.Naziv, Value = zanr, IsSelected = false }));
         korisnikController.GetUrednici().ForEach(urednik => Urednici.Add(new KorisnikDTO(urednik)));
         this.muzickiSadrzajController = muzickiSadrzajController;
         this.recenzijaController = recenzijaController;
-        this.izvodiController = izvodiController;
         DataContext = this;
 
         InitializeComponent();
@@ -47,12 +45,12 @@ public partial class AddAlbumWindow : Window {
 
         Album album = new((NacinCuvanja)NacinComboBox.SelectedValue) { Opis = opis };
         zanrovi.ForEach(zanr => { if (zanr != null) album.DodajZanr(zanr); });
-        izvodjaci.ForEach(izvodjac => { if (izvodjac != null) izvodiController.Add(new Izvodi("izvođač", izvodjac, album)); });
+        izvodjaci.ForEach(izvodjac => { if (izvodjac != null) album.DodajIzvodjaca(izvodjac); });
+        muzickiSadrzajController.DodajMuzickiSadrzaj(album);
 
         // dodavanje prazne recenzije
         recenzijaController.DodajRecenziju(new Recenzija(((KorisnikDTO)UrednikComboBox.SelectedValue).ToKorisnik(), album, -1, "", false));
 
-        muzickiSadrzajController.DodajMuzickiSadrzaj(album);
         MessageBox.Show("Album uspešno dodat.", "Dodavanje uspešno", MessageBoxButton.OK, MessageBoxImage.Information);
         Close();
     }

@@ -20,9 +20,8 @@ public partial class AddNastupWindow : Window {
 
     private readonly MuzickiSadrzajController muzickiSadrzajController;
     private readonly RecenzijaController recenzijaController;
-    private readonly IzvodiController izvodiController;
 
-    public AddNastupWindow(KorisnikController korisnikController, ZanrController zanrController, IzvodjacController izvodjacController, IzvodiController izvodiController, MuzickiSadrzajController muzickiSadrzajController, RecenzijaController recenzijaController) {
+    public AddNastupWindow(KorisnikController korisnikController, ZanrController zanrController, IzvodjacController izvodjacController, MuzickiSadrzajController muzickiSadrzajController, RecenzijaController recenzijaController) {
         izvodjacController.GetAll().ForEach(izvodjac => Izvodjaci.Add(new() { Key = izvodjac.Opis, Value = izvodjac, IsSelected = false }));
         muzickiSadrzajController.GetAlbumi().ForEach(album => Albumi.Add(new() { Key = album.Opis, Value = album, IsSelected = false }));
         muzickiSadrzajController.GetDela().ForEach(delo => Dela.Add(new() { Key = delo.Opis, Value = delo, IsSelected = false }));
@@ -30,7 +29,6 @@ public partial class AddNastupWindow : Window {
         korisnikController.GetUrednici().ForEach(urednik => Urednici.Add(new KorisnikDTO(urednik)));
         this.muzickiSadrzajController = muzickiSadrzajController;
         this.recenzijaController = recenzijaController;
-        this.izvodiController = izvodiController;
         DataContext = this;
 
         InitializeComponent();
@@ -52,12 +50,12 @@ public partial class AddNastupWindow : Window {
         zanrovi.ForEach(zanr => { if (zanr != null) nastup.DodajZanr(zanr); });
         dela.ForEach(delo => { if (delo != null) nastup.DodajMuzickiSadrzaj(delo); });
         albumi.ForEach(album => { if (album != null) nastup.DodajMuzickiSadrzaj(album); });
-        izvodjaci.ForEach(izvodjac => { if (izvodjac != null) izvodiController.Add(new Izvodi("izvođač", izvodjac, nastup)); });
+        izvodjaci.ForEach(izvodjac => { if (izvodjac != null) nastup.DodajIzvodjaca(izvodjac); });
+        muzickiSadrzajController.DodajMuzickiSadrzaj(nastup);
 
         // dodavanje prazne recenzije
         recenzijaController.DodajRecenziju(new Recenzija(((KorisnikDTO)UrednikComboBox.SelectedValue).ToKorisnik(), nastup, -1, "", false));
 
-        muzickiSadrzajController.DodajMuzickiSadrzaj(nastup);
         MessageBox.Show("Nastup uspešno dodat.", "Dodavanje uspešno", MessageBoxButton.OK, MessageBoxImage.Information);
         Close();
     }

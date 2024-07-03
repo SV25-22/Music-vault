@@ -17,18 +17,12 @@ public partial class EditAlbumWindow : Window {
     public ObservableCollection<MultiSelectItem> Zanrovi { get; set; } = new();
 
     private readonly MuzickiSadrzajController muzickiSadrzajController;
-    private readonly IzvodiController izvodiController;
     private readonly Album album;
 
-    public EditAlbumWindow(Album album, ZanrController zanrController, IzvodjacController izvodjacController, IzvodiController izvodiController, MuzickiSadrzajController muzickiSadrzajController) {
+    public EditAlbumWindow(Album album, ZanrController zanrController, IzvodjacController izvodjacController, MuzickiSadrzajController muzickiSadrzajController) {
         zanrController.GetAll().ForEach(zanr => Zanrovi.Add(new() { Key = zanr.Naziv, Value = zanr, IsSelected = album.Zanrevi?.Any(z => z.Id == zanr.Id) ?? false }));
-        izvodjacController.GetAll().ForEach(izvodjac => Izvodjaci.Add(new() {
-            Key = izvodjac.Opis,
-            Value = izvodjac,
-            IsSelected = izvodiController.GetAll().Any(i => i.Izvodjac.Id == izvodjac.Id && i.MuzickiSadrzaj.Id == album.Id)
-        }));
+        izvodjacController.GetAll().ForEach(izvodjac => Izvodjaci.Add(new() { Key = izvodjac.Opis, Value = izvodjac, IsSelected = album.Izvodjaci?.Any(i => i.Id == izvodjac.Id) ?? false }));
         this.muzickiSadrzajController = muzickiSadrzajController;
-        this.izvodiController = izvodiController;
         this.album = album;
         DataContext = this;
 
@@ -49,13 +43,12 @@ public partial class EditAlbumWindow : Window {
 
         album.Opis = opis;
         album.Zanrevi.Clear();
+        album.Izvodjaci.Clear();
         album.Tip = (NacinCuvanja)NacinComboBox.SelectedValue;
         zanrovi.ForEach(zanr => { if (zanr != null) album.DodajZanr(zanr); });
-        // todo moguć problem ako dodaje duplikate, problem za rešiti kasnije kad se bude testiralo
-        izvodjaci.ForEach(izvodjac => { if (izvodjac != null) izvodiController.Add(new Izvodi("izvođač", izvodjac, album)); });
+        izvodjaci.ForEach(izvodjac => { if (izvodjac != null) album.DodajIzvodjaca(izvodjac); });
 
-        // todo fiksan id, add problem
-        muzickiSadrzajController.Update(album);
+        muzickiSadrzajController.UpdateAlbum(album);
         MessageBox.Show("Album uspešno izmenjen.", "Izmena uspešna", MessageBoxButton.OK, MessageBoxImage.Information);
         Close();
     }

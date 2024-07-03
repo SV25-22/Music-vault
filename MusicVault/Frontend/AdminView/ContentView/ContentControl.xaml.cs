@@ -19,7 +19,6 @@ public partial class ContentControl : UserControl, IObserver {
     private RecenzijaController recenzijaController;
     private KorisnikController korisnikController;
     private IzvodjacController izvodjacController;
-    private IzvodiController izvodiController;
     private ZanrController zanrController;
 
     public ContentControl() {
@@ -33,7 +32,6 @@ public partial class ContentControl : UserControl, IObserver {
         recenzijaController = mainWindow?.recenzijaController ?? new();
         korisnikController = mainWindow?.korisnikController ?? new();
         izvodjacController = mainWindow?.izvodjacController ?? new();
-        izvodiController = mainWindow?.izvodiController ?? new();
         zanrController = mainWindow?.zanrController ?? new();
         RefreshDataGrid();
     }
@@ -56,28 +54,27 @@ public partial class ContentControl : UserControl, IObserver {
 
     private void AddContentBtn_Click(object sender, RoutedEventArgs e) {
         if (TypeComboBox.SelectedValue.ToString() == "dela")
-            new AddTrackWindow(korisnikController, zanrController, izvodjacController, izvodiController, muzickiSadrzajController, recenzijaController).Show();
+            new AddTrackWindow(korisnikController, zanrController, izvodjacController, muzickiSadrzajController, recenzijaController).Show();
         else if (TypeComboBox.SelectedValue.ToString() == "albumi")
-            new AddAlbumWindow(korisnikController, zanrController, izvodjacController, izvodiController, muzickiSadrzajController, recenzijaController).Show();
+            new AddAlbumWindow(korisnikController, zanrController, izvodjacController, muzickiSadrzajController, recenzijaController).Show();
         else if (TypeComboBox.SelectedValue.ToString() == "nastupi")
-            new AddNastupWindow(korisnikController, zanrController, izvodjacController, izvodiController, muzickiSadrzajController, recenzijaController).Show();
+            new AddNastupWindow(korisnikController, zanrController, izvodjacController, muzickiSadrzajController, recenzijaController).Show();
         else if (TypeComboBox.SelectedValue.ToString() == "izvođači")
             new AddArtistWindow(zanrController, izvodjacController).Show();
     }
 
     private void SadrzajDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
         if (TypeComboBox.SelectedValue.ToString() == "dela")
-            new EditTrackWindow((Delo)((SadrzajDTO)SadrzajDataGrid.SelectedValue).MuzickiSadrzaj, zanrController, izvodjacController, izvodiController, muzickiSadrzajController).Show();
+            new EditTrackWindow(muzickiSadrzajController.GetDeloEager(((SadrzajDTO)SadrzajDataGrid.SelectedValue).Id), zanrController, izvodjacController, muzickiSadrzajController).Show();
         else if (TypeComboBox.SelectedValue.ToString() == "albumi")
-            new EditAlbumWindow((Album)((SadrzajDTO)SadrzajDataGrid.SelectedValue).MuzickiSadrzaj, zanrController, izvodjacController, izvodiController, muzickiSadrzajController).Show();
+            new EditAlbumWindow(muzickiSadrzajController.GetAlbumEager(((SadrzajDTO)SadrzajDataGrid.SelectedValue).Id), zanrController, izvodjacController, muzickiSadrzajController).Show();
         else if (TypeComboBox.SelectedValue.ToString() == "nastupi")
-            new EditNastupWindow((Nastup)((SadrzajDTO)SadrzajDataGrid.SelectedValue).MuzickiSadrzaj, zanrController, izvodjacController, izvodiController, muzickiSadrzajController).Show();
+            new EditNastupWindow(muzickiSadrzajController.GetNastupEager(((SadrzajDTO)SadrzajDataGrid.SelectedValue).Id), zanrController, izvodjacController, muzickiSadrzajController).Show();
         else if (TypeComboBox.SelectedValue.ToString() == "izvođači")
-            new EditArtistWindow(((SadrzajDTO)SadrzajDataGrid.SelectedValue).Izvodjac, zanrController, izvodjacController).Show();
+            new EditArtistWindow(izvodjacController.GetIzvodjacEager(((SadrzajDTO)SadrzajDataGrid.SelectedValue).Id), zanrController, izvodjacController).Show();
     }
 
     private void SearchTxtBox_TextChanged(object sender, TextChangedEventArgs e) => RefreshDataGrid();
-
     public void Update() => RefreshDataGrid();
 
     public void RefreshDataGrid() {

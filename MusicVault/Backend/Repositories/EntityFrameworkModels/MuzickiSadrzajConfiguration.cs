@@ -29,6 +29,9 @@ public class MuzickiSadrzajConfiguration : IEntityTypeConfiguration<MuzickiSadrz
         builder.HasMany(ms => ms.MultimedijalniSadrzaji)
             .WithMany();
 
+        builder.HasMany(ms => ms.Izvodjaci)
+            .WithMany();
+
         builder
             .HasDiscriminator<string>("Vrsta")
             .HasValue<Album>("Album")

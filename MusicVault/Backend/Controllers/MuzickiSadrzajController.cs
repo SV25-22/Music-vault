@@ -14,7 +14,34 @@ public class MuzickiSadrzajController : GenericController<MuzickiSadrzaj, Muzick
     public List<Nastup> GetNastupi(string search = "") => MuzickiSadrzajRepository.GetNastupi(search);
 
     public void DodajMuzickiSadrzaj(MuzickiSadrzaj entity) {
-        repository.Add(entity);
+        repository.DodajMuzickiSadrzaj(entity);
+        Subject.NotifyObservers();
+    }
+
+    public Delo GetDeloEager(int id) {
+        return repository.GetDeloEager(id);
+    }
+
+    public Album GetAlbumEager(int id) {
+        return repository.GetAlbumEager(id);
+    }
+
+    public Nastup GetNastupEager(int id) {
+        return repository.GetNastupEager(id);
+    }
+
+    public void UpdateDelo(Delo delo) {
+        repository.UpdateDelo(delo);
+        Subject.NotifyObservers();
+    }
+
+    public void UpdateNastup(Nastup nastup) {
+        repository.UpdateNastup(nastup);
+        Subject.NotifyObservers();
+    }
+
+    public void UpdateAlbum(Album album) {
+        repository.UpdateAlbum(album);
         Subject.NotifyObservers();
     }
 }

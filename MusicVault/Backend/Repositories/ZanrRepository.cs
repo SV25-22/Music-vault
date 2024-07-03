@@ -8,7 +8,9 @@ public class ZanrRepository : SQLGenericRepository<Zanr> {
     public Zanr DodajZanr(Zanr entity) {
         using (var context = new SqlDbContext()) {
             context.Set<Zanr>();
-            context.Attach(entity.NadZanr);
+            if (entity.NadZanr != null) {
+                context.Attach(entity.NadZanr);
+            }
             context.Add(entity);
             context.SaveChanges();
             return entity;

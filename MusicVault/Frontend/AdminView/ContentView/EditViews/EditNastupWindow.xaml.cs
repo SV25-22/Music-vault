@@ -16,20 +16,14 @@ public partial class EditNastupWindow : Window {
     public ObservableCollection<MultiSelectItem> Dela { get; set; } = new();
 
     private readonly MuzickiSadrzajController muzickiSadrzajController;
-    private readonly IzvodiController izvodiController;
     private readonly Nastup nastup;
 
-    public EditNastupWindow(Nastup nastup, ZanrController zanrController, IzvodjacController izvodjacController, IzvodiController izvodiController, MuzickiSadrzajController muzickiSadrzajController) {
+    public EditNastupWindow(Nastup nastup, ZanrController zanrController, IzvodjacController izvodjacController, MuzickiSadrzajController muzickiSadrzajController) {
         muzickiSadrzajController.GetAlbumi().ForEach(album => Albumi.Add(new() { Key = album.Opis, Value = album, IsSelected = nastup.MuzickiSadrzaji?.Any(a => a.Id == album.Id) ?? false }));
         muzickiSadrzajController.GetDela().ForEach(delo => Dela.Add(new() { Key = delo.Opis, Value = delo, IsSelected = nastup.MuzickiSadrzaji?.Any(d => d.Id == delo.Id) ?? false }));
         zanrController.GetAll().ForEach(zanr => Zanrovi.Add(new() { Key = zanr.Naziv, Value = zanr, IsSelected = nastup.Zanrevi?.Any(z => z.Id == zanr.Id) ?? false }));
-        izvodjacController.GetAll().ForEach(izvodjac => Izvodjaci.Add(new() {
-            Key = izvodjac.Opis,
-            Value = izvodjac,
-            IsSelected = izvodiController.GetAll().Any(i => i.Izvodjac.Id == izvodjac.Id && i.MuzickiSadrzaj.Id == nastup.Id)
-        }));
+        izvodjacController.GetAll().ForEach(izvodjac => Izvodjaci.Add(new() { Key = izvodjac.Opis, Value = izvodjac, IsSelected = nastup.Izvodjaci?.Any(i => i.Id == izvodjac.Id) ?? false }));
         this.muzickiSadrzajController = muzickiSadrzajController;
-        this.izvodiController = izvodiController;
         this.nastup = nastup;
 
         DataContext = this;
@@ -52,14 +46,13 @@ public partial class EditNastupWindow : Window {
         nastup.Opis = opis;
         nastup.Zanrevi.Clear();
         nastup.MuzickiSadrzaji.Clear();
+        nastup.Izvodjaci.Clear();
         zanrovi.ForEach(zanr => { if (zanr != null) nastup.DodajZanr(zanr); });
         dela.ForEach(delo => { if (delo != null) nastup.DodajMuzickiSadrzaj(delo); });
         albumi.ForEach(album => { if (album != null) nastup.DodajMuzickiSadrzaj(album); });
-        // todo moguć problem ako dodaje duplikate, problem za rešiti kasnije kad se bude testiralo
-        izvodjaci.ForEach(izvodjac => { if (izvodjac != null) izvodiController.Add(new Izvodi("izvođač", izvodjac, nastup)); });
+        izvodjaci.ForEach(izvodjac => { if (izvodjac != null) nastup.DodajIzvodjaca(izvodjac); });
 
-        // todo fiksan id, add problem
-        muzickiSadrzajController.Add(nastup);
+        muzickiSadrzajController.UpdateNastup(nastup);
         MessageBox.Show("Nastup uspešno izmenjen.", "Izmena uspešna", MessageBoxButton.OK, MessageBoxImage.Information);
         Close();
     }

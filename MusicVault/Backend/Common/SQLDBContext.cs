@@ -43,7 +43,10 @@ public class SqlDbContext : DbContext {
                                    "User Id = postgres;" +
                                    "Password=123;";
 
-            optionsBuilder.UseNpgsql(connectionString).LogTo(s => { System.Diagnostics.Debug.WriteLine(s); }).EnableDetailedErrors().EnableSensitiveDataLogging();
+            optionsBuilder.UseNpgsql(connectionString)
+                .LogTo(s => { System.Diagnostics.Debug.WriteLine(s); })
+                .EnableDetailedErrors()
+                .EnableSensitiveDataLogging();
         }
     }
 
