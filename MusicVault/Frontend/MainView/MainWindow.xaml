@@ -1,4 +1,4 @@
-﻿<Window xmlns:RegistrovaniView="clr-namespace:MusicVault.Frontend.MainView.RegistrovaniView"  x:Class="MusicVault.Frontend.MainView.MainWindow"
+﻿<Window xmlns:ContentView="clr-namespace:MusicVault.Frontend.MainView.ContentView"  xmlns:RegistrovaniView="clr-namespace:MusicVault.Frontend.MainView.RegistrovaniView"  x:Class="MusicVault.Frontend.MainView.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -23,7 +23,7 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Sadržaj">
-
+                <ContentView:SearchControl />
             </TabItem>
             <TabItem Header="Glasanje" Name="glasanjeTab" Visibility="Hidden">
 
