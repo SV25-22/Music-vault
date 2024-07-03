@@ -42,7 +42,8 @@ public class Korisnik : IDAble {
         Banovan = false;
     }
 
-    public Korisnik(string ime, string prezime, TipKorisnika tip, string mejl, string telefon, DateOnly godRodjenja, Pol pol, string lozinka, bool javni) {
+    public Korisnik(int id, string ime, string prezime, TipKorisnika tip, string mejl, string telefon, DateOnly godRodjenja, Pol pol, string lozinka, bool javni, bool banovan) {
+        Id = id;
         Ime = ime;
         Prezime = prezime;
         Tip = tip;
@@ -52,6 +53,6 @@ public class Korisnik : IDAble {
         Pol = pol;
         Lozinka = SifrujLozinku(lozinka);
         Javni = javni;
-        Banovan = false;
+        Banovan = banovan;
     }
 }
