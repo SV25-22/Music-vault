@@ -13,13 +13,23 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MusicVault.Frontend.MainView.RegistrovaniView {
-    /// <summary>
-    /// Interaction logic for GlasanjeControl.xaml
-    /// </summary>
-    public partial class GlasanjeControl : UserControl {
-        public GlasanjeControl() {
-            InitializeComponent();
-        }
+namespace MusicVault.Frontend.MainView.RegistrovaniView;
+
+public partial class VotingControl : UserControl {
+    public VotingControl() {
+        DataContext = this;
+        InitializeComponent();
+    }
+
+    private void OdgovorComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+
+    }
+
+    private void GlasanjeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+
+    }
+
+    private void odgBtn_Click(object sender, RoutedEventArgs e) {
+
     }
 }

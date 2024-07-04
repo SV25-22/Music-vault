@@ -1,4 +1,5 @@
-﻿using MusicVault.Backend.Controllers;
+﻿using MusicVault.Backend.Common;
+using MusicVault.Backend.Controllers;
 using MusicVault.Backend.Model;
 using System.Windows;
 
@@ -16,6 +17,7 @@ public partial class MainWindow : Window {
     public Korisnik? ulogovaniKorsnik = null;
 
     public MainWindow() {
+        Sistem.ZavrsiSveGlasove(glasanjeController);
         InitializeComponent();
         DataContext = this;
     }

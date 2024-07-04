@@ -37,7 +37,7 @@ public partial class LoginControl : UserControl {
     private void LoginButton_Click(object sender, RoutedEventArgs e) {
         if (korisnikController.UlogujSe(emailBox.Text, passwordBox.Password) is var korisnik && korisnik != null) {
             if (korisnik.Tip == TipKorisnika.Admin) {
-                AdminWindow adminWindow = new(korisnikController, muzickiSadrzajController, zanrController, recenzijaController, izvodjacController);
+                AdminWindow adminWindow = new(korisnikController, muzickiSadrzajController, zanrController, recenzijaController, izvodjacController, glasanjeController);
                 adminWindow.Closed += ShowMe;
                 adminWindow.Show();
                 mainWindow?.Hide();

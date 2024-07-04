@@ -16,7 +16,7 @@
                 <local:ContentControl x:Name="contentControl"/>
             </TabItem>
             <TabItem Header="Glasanja">
-                <local:StopVotingControl x:Name="stopVotingControl"/>
+                <local:VotingControl x:Name="votingControl"/>
             </TabItem>
         </TabControl>
     </Grid>
