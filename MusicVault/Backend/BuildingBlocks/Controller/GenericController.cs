@@ -8,7 +8,7 @@ public abstract class GenericController<T, R>
     where T: IDAble
     where R: SQLGenericRepository<T>, new() {
     protected readonly R repository;
-    private readonly Subject Subject;
+    protected readonly Subject Subject;
 
     public GenericController() {
         repository = new R();

@@ -9,7 +9,8 @@ public abstract class SQLGenericRepository<T> where T : IDAble {
 
     public T Add(T entity) {
         using (var context = new SqlDbContext()) {
-            context.Set<T>().Add(entity);
+            context.Set<T>();
+            context.Add(entity);
             context.SaveChanges();
             return entity;
         }

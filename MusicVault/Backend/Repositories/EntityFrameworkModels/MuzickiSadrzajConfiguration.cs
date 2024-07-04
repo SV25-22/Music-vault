@@ -29,6 +29,9 @@ public class MuzickiSadrzajConfiguration : IEntityTypeConfiguration<MuzickiSadrz
         builder.HasMany(ms => ms.MultimedijalniSadrzaji)
             .WithMany();
 
+        builder.HasMany(ms => ms.Izvodjaci)
+            .WithMany();
+
         builder
             .HasDiscriminator<string>("Vrsta")
             .HasValue<Album>("Album")
@@ -37,8 +40,8 @@ public class MuzickiSadrzajConfiguration : IEntityTypeConfiguration<MuzickiSadrz
     }
 }
 
-public class NastupConfiguration : IEntityTypeConfiguration<Nastup> {
-    public void Configure(EntityTypeBuilder<Nastup> builder) {
+public class AlbumConfiguration : IEntityTypeConfiguration<Album> {
+    public void Configure(EntityTypeBuilder<Album> builder) {
         builder.Property(n => n.Tip)
             .HasColumnType("integer");
     }

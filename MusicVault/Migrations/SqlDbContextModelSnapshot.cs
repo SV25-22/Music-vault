@@ -51,6 +51,21 @@ namespace MusicVault.Migrations
                     b.ToTable("IzvodjacMultimedijalniSadrzaj");
                 });
 
+            modelBuilder.Entity("IzvodjacMuzickiSadrzaj", b =>
+                {
+                    b.Property<int>("IzvodjaciId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("MuzickiSadrzajId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("IzvodjaciId", "MuzickiSadrzajId");
+
+                    b.HasIndex("MuzickiSadrzajId");
+
+                    b.ToTable("IzvodjacMuzickiSadrzaj");
+                });
+
             modelBuilder.Entity("IzvodjacReklama", b =>
                 {
                     b.Property<int>("IzvodjaciId")
@@ -157,34 +172,6 @@ namespace MusicVault.Migrations
                     b.ToTable("Glasanje");
                 });
 
-            modelBuilder.Entity("MusicVault.Backend.Model.Izvodi", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("IzvodjacId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("MuzickiSadrzajId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Uloga")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IzvodjacId");
-
-                    b.HasIndex("MuzickiSadrzajId");
-
-                    b.ToTable("Izvodi");
-                });
-
             modelBuilder.Entity("MusicVault.Backend.Model.Izvodjac", b =>
                 {
                     b.Property<int>("Id")
@@ -211,7 +198,10 @@ namespace MusicVault.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("GodRodjenja")
+                    b.Property<bool>("Banovan")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateOnly>("GodRodjenja")
                         .HasColumnType("date");
 
                     b.Property<string>("Ime")
@@ -287,6 +277,9 @@ namespace MusicVault.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<bool>("Objavljeno")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("Opis")
                         .IsRequired()
                         .HasMaxLength(255)
@@ -349,16 +342,13 @@ namespace MusicVault.Migrations
                     b.ToTable("Pregled");
                 });
 
-            modelBuilder.Entity("MusicVault.Backend.Model.Recenzija", b =>
+            modelBuilder.Entity("MusicVault.Backend.Model.Recenzija.Recenzija", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("KorisnikId")
-                        .HasColumnType("integer");
 
                     b.Property<int>("MuzickiSadrzajId")
                         .HasColumnType("integer");
@@ -374,11 +364,17 @@ namespace MusicVault.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("varchar");
 
+                    b.Property<int>("Stanje")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("UrednikId")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("KorisnikId");
-
                     b.HasIndex("MuzickiSadrzajId");
+
+                    b.HasIndex("UrednikId");
 
                     b.ToTable("Recenzija");
                 });
@@ -412,7 +408,7 @@ namespace MusicVault.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("NadZanrID")
+                    b.Property<int?>("NadZanrId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Naziv")
@@ -422,7 +418,8 @@ namespace MusicVault.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("NadZanrID");
+                    b.HasIndex("NadZanrId")
+                        .IsUnique();
 
                     b.ToTable("Zanr");
                 });
@@ -512,6 +509,9 @@ namespace MusicVault.Migrations
                 {
                     b.HasBaseType("MusicVault.Backend.Model.MuzickiSadrzaj.MuzickiSadrzaj");
 
+                    b.Property<int>("Tip")
+                        .HasColumnType("integer");
+
                     b.HasDiscriminator().HasValue("Album");
                 });
 
@@ -525,9 +525,6 @@ namespace MusicVault.Migrations
             modelBuilder.Entity("MusicVault.Backend.Model.MuzickiSadrzaj.Nastup", b =>
                 {
                     b.HasBaseType("MusicVault.Backend.Model.MuzickiSadrzaj.MuzickiSadrzaj");
-
-                    b.Property<int>("Tip")
-                        .HasColumnType("integer");
 
                     b.HasDiscriminator().HasValue("Nastup");
                 });
@@ -558,6 +555,21 @@ namespace MusicVault.Migrations
                     b.HasOne("MusicVault.Backend.Model.MultimedijalniSadrzaj.MultimedijalniSadrzaj", null)
                         .WithMany()
                         .HasForeignKey("MultimedijalniSadrzajiId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("IzvodjacMuzickiSadrzaj", b =>
+                {
+                    b.HasOne("MusicVault.Backend.Model.Izvodjac", null)
+                        .WithMany()
+                        .HasForeignKey("IzvodjaciId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MusicVault.Backend.Model.MuzickiSadrzaj.MuzickiSadrzaj", null)
+                        .WithMany()
+                        .HasForeignKey("MuzickiSadrzajId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -630,25 +642,6 @@ namespace MusicVault.Migrations
                     b.Navigation("MuzickiSadrzaj");
                 });
 
-            modelBuilder.Entity("MusicVault.Backend.Model.Izvodi", b =>
-                {
-                    b.HasOne("MusicVault.Backend.Model.Izvodjac", "Izvodjac")
-                        .WithMany()
-                        .HasForeignKey("IzvodjacId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MusicVault.Backend.Model.MuzickiSadrzaj.MuzickiSadrzaj", "MuzickiSadrzaj")
-                        .WithMany()
-                        .HasForeignKey("MuzickiSadrzajId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Izvodjac");
-
-                    b.Navigation("MuzickiSadrzaj");
-                });
-
             modelBuilder.Entity("MusicVault.Backend.Model.Pregled", b =>
                 {
                     b.HasOne("MusicVault.Backend.Model.Korisnik", "Korisnik")
@@ -668,21 +661,21 @@ namespace MusicVault.Migrations
                     b.Navigation("MuzickiSadrzaj");
                 });
 
-            modelBuilder.Entity("MusicVault.Backend.Model.Recenzija", b =>
+            modelBuilder.Entity("MusicVault.Backend.Model.Recenzija.Recenzija", b =>
                 {
-                    b.HasOne("MusicVault.Backend.Model.Korisnik", "Korisnik")
-                        .WithMany()
-                        .HasForeignKey("KorisnikId");
-
                     b.HasOne("MusicVault.Backend.Model.MuzickiSadrzaj.MuzickiSadrzaj", "MuzickiSadrzaj")
                         .WithMany()
                         .HasForeignKey("MuzickiSadrzajId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Korisnik");
+                    b.HasOne("MusicVault.Backend.Model.Korisnik", "Urednik")
+                        .WithMany()
+                        .HasForeignKey("UrednikId");
 
                     b.Navigation("MuzickiSadrzaj");
+
+                    b.Navigation("Urednik");
                 });
 
             modelBuilder.Entity("MusicVault.Backend.Model.Reklama", b =>
@@ -699,8 +692,8 @@ namespace MusicVault.Migrations
             modelBuilder.Entity("MusicVault.Backend.Model.Zanr", b =>
                 {
                     b.HasOne("MusicVault.Backend.Model.Zanr", "NadZanr")
-                        .WithMany()
-                        .HasForeignKey("NadZanrID");
+                        .WithOne()
+                        .HasForeignKey("MusicVault.Backend.Model.Zanr", "NadZanrId");
 
                     b.Navigation("NadZanr");
                 });
