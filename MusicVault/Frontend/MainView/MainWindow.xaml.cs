@@ -11,7 +11,6 @@ public partial class MainWindow : Window {
     public KorisnikController korisnikController = new();
     public IzvodjacController izvodjacController = new();
     public GlasanjeController glasanjeController = new();
-    public GlasController glasController = new();
     public ZanrController zanrController = new();
 
     public Korisnik? ulogovaniKorsnik = null;

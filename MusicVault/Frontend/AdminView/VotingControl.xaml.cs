@@ -55,8 +55,11 @@ public partial class VotingControl : UserControl, IObserver {
             return;
         }
 
+        Glasanje glasanje = new(startDate, endDate, true, naziv);
+        odgovori.ForEach(odgovor => { if (odgovor != null) glasanje.DodajOpcijuZaGlasanje(odgovor); });
+        glasanjeController.DodajGlasanje(glasanje);
         PitanjeTxtBox.Text = "";
-        glasanjeController.Add(new Glasanje(startDate, endDate, true, naziv));
+
         MessageBox.Show("Glasanje uspešno dodato.", "Dodavanje uspešno", MessageBoxButton.OK, MessageBoxImage.Information);
     }
 

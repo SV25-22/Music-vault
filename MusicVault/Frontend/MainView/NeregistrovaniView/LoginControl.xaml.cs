@@ -12,7 +12,6 @@ public partial class LoginControl : UserControl {
     public KorisnikController korisnikController;
     public IzvodjacController izvodjacController;
     public GlasanjeController glasanjeController;
-    public GlasController glasController;
     public ZanrController zanrController;
     private MainWindow? mainWindow;
 
@@ -27,7 +26,6 @@ public partial class LoginControl : UserControl {
         korisnikController = mainWindow?.korisnikController ?? new();
         izvodjacController = mainWindow?.izvodjacController ?? new();
         glasanjeController = mainWindow?.glasanjeController ?? new();
-        glasController = mainWindow?.glasController ?? new();
         zanrController = mainWindow?.zanrController ?? new();
         DataContext = this;
     }
