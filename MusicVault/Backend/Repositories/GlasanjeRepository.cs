@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using MusicVault.Backend.Model;
 using System.Linq;
+using System.Windows.Input;
 
 namespace MusicVault.Backend.Repositories;
 
@@ -68,6 +69,17 @@ public class GlasanjeRepository : SQLGenericRepository<Glasanje> {
             context.Update(staroGlasanje);
 
             context.SaveChanges();
+        }
+    }
+
+    public List<Glasanje> GetAllEager() {
+        using (var context = new SqlDbContext()) {
+            return context.Glasanje
+                .Include(g => g.OpcijeZaGlasanje)
+                .Include(g => g.Glasovi)
+                .ThenInclude(g => g.Korisnik)
+                .AsEnumerable()
+                .ToList();
         }
     }
 }

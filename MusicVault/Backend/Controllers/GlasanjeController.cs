@@ -28,4 +28,8 @@ public class GlasanjeController : GenericController<Glasanje, GlasanjeRepository
         repository.UpdateGlasanje(glasanje);
         Subject.NotifyObservers();
     }
+
+    public List<Glasanje> GetAllEager() {
+        return repository.GetAllEager();
+    }
 }

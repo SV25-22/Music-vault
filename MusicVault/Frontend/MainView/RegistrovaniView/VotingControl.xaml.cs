@@ -34,7 +34,14 @@ public partial class VotingControl : UserControl, IObserver {
     public void Update() {
         Glasanja.Clear();
         Odgovori.Clear();
-        glasanjeController.GetGlasanja().Where(glasanje => glasanje.Aktivno && glasanje.Glasovi.All(glas => glas.Korisnik.Id != korisnik.Id)).ToList().ForEach(Glasanja.Add);
+        glasanjeController.GetAllEager()
+            .Where(glasanje => 
+                glasanje.Aktivno && 
+                glasanje.Glasovi.All(
+                    glas => glas.Korisnik.Id != korisnik.Id
+                    ))
+                    .ToList()
+                    .ForEach(Glasanja.Add);
     }
 
     private void odgBtn_Click(object sender, RoutedEventArgs e) {
