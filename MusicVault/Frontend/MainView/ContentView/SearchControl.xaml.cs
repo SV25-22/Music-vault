@@ -6,6 +6,7 @@ using MusicVault.Frontend.DTO;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows;
+using MusicVault.Backend.Model;
 
 namespace MusicVault.Frontend.MainView.ContentView;
 
@@ -14,7 +15,9 @@ public partial class SearchControl : UserControl, IObserver {
     public ObservableCollection<SadrzajDTO> Sadrzaj { get; set; } = new();
 
     private MuzickiSadrzajController muzickiSadrzajController;
+    private RecenzijaController recenzijaController;
     private IzvodjacController izvodjacController;
+    private Korisnik korisnik;
 
     public SearchControl() {
         DataContext = this;
@@ -22,9 +25,11 @@ public partial class SearchControl : UserControl, IObserver {
     }
 
     private void OnControlLoaded(object sender, RoutedEventArgs e) {
-        AdminWindow? mainWindow = Window.GetWindow(this) as AdminWindow;
+        MainWindow? mainWindow = Window.GetWindow(this) as MainWindow;
         muzickiSadrzajController = mainWindow?.muzickiSadrzajController ?? new();
+        recenzijaController = mainWindow?.recenzijaController ?? new();
         izvodjacController = mainWindow?.izvodjacController ?? new();
+        korisnik = mainWindow?.ulogovaniKorsnik ?? new();
         muzickiSadrzajController.Subscribe(this);
         izvodjacController.Subscribe(this);
         RefreshDataGrid();
@@ -32,7 +37,7 @@ public partial class SearchControl : UserControl, IObserver {
 
     private void SadrzajDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
         if (TypeComboBox.SelectedValue.ToString() == "dela")
-            new TrackWindow().Show();
+            new TrackWindow(korisnik, recenzijaController, muzickiSadrzajController.GetDeloEager(((SadrzajDTO)SadrzajDataGrid.SelectedValue).Id), muzickiSadrzajController).Show();
         else if (TypeComboBox.SelectedValue.ToString() == "albumi")
             new AlbumWindow().Show();
         else if (TypeComboBox.SelectedValue.ToString() == "nastupi")
