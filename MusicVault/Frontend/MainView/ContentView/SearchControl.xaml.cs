@@ -1,12 +1,11 @@
 ﻿using MusicVault.Backend.BuildingBlocks.Observer;
 using MusicVault.Backend.Controllers;
-using MusicVault.Frontend.AdminView;
 using System.Collections.ObjectModel;
+using MusicVault.Backend.Model;
 using MusicVault.Frontend.DTO;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows;
-using MusicVault.Backend.Model;
 
 namespace MusicVault.Frontend.MainView.ContentView;
 
@@ -43,7 +42,7 @@ public partial class SearchControl : UserControl, IObserver {
         else if (TypeComboBox.SelectedValue.ToString() == "nastupi")
             new NastupWindow(korisnik, recenzijaController, muzickiSadrzajController.GetNastupEager(((SadrzajDTO)SadrzajDataGrid.SelectedValue).Id)).Show();
         else if (TypeComboBox.SelectedValue.ToString() == "izvođači")
-            new ArtistWindow().Show();
+            new ArtistWindow(izvodjacController.GetIzvodjacEager(((SadrzajDTO)SadrzajDataGrid.SelectedValue).Id), muzickiSadrzajController).Show();
     }
 
     private void TypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) => RefreshDataGrid();
