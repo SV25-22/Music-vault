@@ -1,6 +1,7 @@
 ﻿using MusicVault.Backend.BuildingBlocks.Storage;
 using MusicVault.Backend.Model.Recenzija;
-using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace MusicVault.Backend.Repositories;
 
@@ -15,6 +16,16 @@ public class RecenzijaRepository : SQLGenericRepository<Recenzija> {
             context.Add(entity);
             context.SaveChanges();
             return entity;
+        }
+    }
+
+    public Recenzija GetEager(int id) {
+        using (var context = new SqlDbContext()) {
+            return context.Recenzija
+                .Include(r => r.MuzickiSadrzaj)
+                .Include(r => r.Urednik)
+                .Where(r => r.Id == id)
+                .Single();
         }
     }
 }
