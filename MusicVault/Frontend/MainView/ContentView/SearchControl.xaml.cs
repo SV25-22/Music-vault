@@ -41,7 +41,7 @@ public partial class SearchControl : UserControl, IObserver {
         else if (TypeComboBox.SelectedValue.ToString() == "albumi")
             new AlbumWindow(korisnik, recenzijaController, muzickiSadrzajController.GetAlbumEager(((SadrzajDTO)SadrzajDataGrid.SelectedValue).Id), muzickiSadrzajController).Show();
         else if (TypeComboBox.SelectedValue.ToString() == "nastupi")
-            new NastupWindow().Show();
+            new NastupWindow(korisnik, recenzijaController, muzickiSadrzajController.GetNastupEager(((SadrzajDTO)SadrzajDataGrid.SelectedValue).Id)).Show();
         else if (TypeComboBox.SelectedValue.ToString() == "izvođači")
             new ArtistWindow().Show();
     }
