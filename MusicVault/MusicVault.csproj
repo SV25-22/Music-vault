@@ -36,6 +36,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Frontend\MainView\RegistrovaniView\UrednikView\AddAlbumWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Frontend\MainView\RegistrovaniView\UrednikView\AddArtistWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Frontend\MainView\RegistrovaniView\UrednikView\AddNastupWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Frontend\MainView\RegistrovaniView\UrednikView\AddTrackWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

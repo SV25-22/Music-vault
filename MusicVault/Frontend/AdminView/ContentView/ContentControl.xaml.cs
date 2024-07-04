@@ -1,7 +1,6 @@
 ﻿using MusicVault.Frontend.AdminView.ContentView.AddViews;
 using MusicVault.Backend.BuildingBlocks.Observer;
 using MusicVault.Frontend.AdminView.ContentView;
-using MusicVault.Backend.Model.MuzickiSadrzaj;
 using MusicVault.Backend.Controllers;
 using System.Collections.ObjectModel;
 using MusicVault.Frontend.DTO;
