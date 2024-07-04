@@ -39,7 +39,7 @@ public partial class SearchControl : UserControl, IObserver {
         if (TypeComboBox.SelectedValue.ToString() == "dela")
             new TrackWindow(korisnik, recenzijaController, muzickiSadrzajController.GetDeloEager(((SadrzajDTO)SadrzajDataGrid.SelectedValue).Id), muzickiSadrzajController).Show();
         else if (TypeComboBox.SelectedValue.ToString() == "albumi")
-            new AlbumWindow().Show();
+            new AlbumWindow(korisnik, recenzijaController, muzickiSadrzajController.GetAlbumEager(((SadrzajDTO)SadrzajDataGrid.SelectedValue).Id), muzickiSadrzajController).Show();
         else if (TypeComboBox.SelectedValue.ToString() == "nastupi")
             new NastupWindow().Show();
         else if (TypeComboBox.SelectedValue.ToString() == "izvođači")
