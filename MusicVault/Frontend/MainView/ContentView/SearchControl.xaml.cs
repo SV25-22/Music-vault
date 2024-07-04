@@ -25,6 +25,8 @@ public partial class SearchControl : UserControl, IObserver {
         AdminWindow? mainWindow = Window.GetWindow(this) as AdminWindow;
         muzickiSadrzajController = mainWindow?.muzickiSadrzajController ?? new();
         izvodjacController = mainWindow?.izvodjacController ?? new();
+        muzickiSadrzajController.Subscribe(this);
+        izvodjacController.Subscribe(this);
         RefreshDataGrid();
     }
 

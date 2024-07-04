@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:common="clr-namespace:MusicVault.Frontend.CommonControls"
         mc:Ignorable="d"
-        Title="Dodavanje dela" Height="520" Width="520" MinHeight="450" MinWidth="450" WindowStartupLocation="CenterScreen">
+        Title="Dodavanje dela" Height="550" Width="520" MinHeight="450" MinWidth="450" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-67,-80,0,0">
             <Grid.ColumnDefinitions>
@@ -40,12 +40,12 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="32"/>
                 </Grid.ColumnDefinitions>
-                <Slider Name="OcnSlider" Minimum="0" Maximum="10" Value="5" IsSnapToTickEnabled="True" TickFrequency="1" VerticalAlignment="Center" Margin="0,0,0,0" IsEnabled="False"/>
+                <Slider Name="OcnSlider" Minimum="0" Maximum="10" Value="5" IsSnapToTickEnabled="True" TickFrequency="1" VerticalAlignment="Center" Margin="0,0,0,0"/>
                 <Label Content="{Binding ElementName=OcnSlider, Path=Value}" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="1"/>
             </Grid>
 
             <Label Grid.Row="5" Content="Recenzija:" HorizontalContentAlignment="Right" VerticalContentAlignment="top" Margin="0,6,5,0"/>
-            <TextBox Name="RecenzijaTxtBox" Grid.Row="5" Grid.Column="1" VerticalContentAlignment="Center" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Width="230" Height="100" Margin="0,5,0,0"/>
+            <TextBox Name="RecenzijaTxtBox" Grid.Row="5" Grid.Column="1" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Width="230" Height="100" Margin="0,5,0,0"/>
         </Grid>
 
         <Button Content="Dodaj delo" HorizontalAlignment="Center" Margin="0,330,0,0" VerticalAlignment="Center" Width="230" Height="34" Click="Add_Click"/>

@@ -45,10 +45,10 @@
                     <Button Name="AddIzvodjacBtn" Content="Dodaj izvođača" Margin="12,0,0,0" Grid.Column="3" Click="AddIzvodjacBtn_Click"/>
                 </Grid>
 
-                <ComboBox Name="RecenzijaComboBox" VerticalContentAlignment="Center" Height="34" Margin="0,25,0,0" ItemsSource="{Binding Recenzije}" SelectedIndex="0" />
+                <ComboBox Name="RecenzijaComboBox" VerticalContentAlignment="Center" Height="34" Margin="0,25,0,0" ItemsSource="{Binding Recenzije}" DisplayMemberPath="Opis" SelectedIndex="0" SelectionChanged="RecenzijaComboBox_SelectionChanged" />
             </StackPanel>
 
-            <TextBox Margin="0,25,0,30" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" IsEnabled="False"/>
+            <TextBox Name="RecenzijaTxtBox" Margin="0,25,0,30" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" IsEnabled="False"/>
 
         </DockPanel>
     </Grid>
