@@ -48,8 +48,8 @@ public partial class TrackWindow : Window, IObserver {
 
         Recenzija recenzijaUrednika = recenzijaController.GetRecenzijaUrednika(delo);
         UrednikLabel.Content = recenzijaUrednika.Urednik?.Ime + " " + recenzijaUrednika.Urednik?.Prezime;
-        RecenzijaUrednikaTxtBox.Text = recenzijaUrednika.Opis;
-        OcenaUrednikaLabel.Content = recenzijaUrednika.Ocena;
+        RecenzijaUrednikaTxtBox.Text = string.IsNullOrEmpty(recenzijaUrednika.Opis) ? "Čeka se recenzija urednika..." : recenzijaUrednika.Opis;
+        OcenaUrednikaLabel.Content = recenzijaUrednika.Ocena == -1 ? "?" : recenzijaUrednika.Ocena;
 
         List<Recenzija> recenzije = recenzijaController.GetRecenzijaZa(delo);
         recenzije.Where(recenzija => (recenzija.Urednik?.Javni ?? false) && recenzija.Urednik.Tip != TipKorisnika.Urednik).ToList().ForEach(recenzija => Recenzije.Add(new RecenzijaDTO(recenzija)));
