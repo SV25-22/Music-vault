@@ -11,7 +11,8 @@ public class KorisnikRepository : SQLGenericRepository<Korisnik> {
     public static Korisnik? KorisnikNaOsnovuKredencijala(string mejl, string lozinka) {
         try {
             using var context = new SqlDbContext();
-            return context.Korisnik.Where(k => k.Mejl == mejl && Korisnik.SifrujLozinku(lozinka) == k.Lozinka && !k.Banovan).Single();
+            Korisnik? korisnik = context.Korisnik.Where(k => k.Mejl == mejl && !k.Banovan).Single();
+            return korisnik != null && korisnik.Lozinka == Korisnik.SifrujLozinku(lozinka, korisnik.Id) ? korisnik : null;
         } catch (InvalidOperationException) {
             return null;
         }

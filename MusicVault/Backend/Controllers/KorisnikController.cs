@@ -9,27 +9,29 @@ public class KorisnikController : GenericController<Korisnik, KorisnikRepository
     public KorisnikController() { }
 
     // GUI Poziva ovu metodu samo sa validnim podacima
-    public Korisnik? RegistrujKorisnika(Korisnik korisnik) {
+    public Korisnik? RegistrujKorisnika(Korisnik korisnik, string lozinka) {
         if (KorisnikRepository.MailPostoji(korisnik.Mejl)) {
             return null;
         }
 
         korisnik.Tip = TipKorisnika.Registrovani;
-
         repository.Add(korisnik);
+        korisnik.PromeniLozinku(lozinka);
+        repository.Update(korisnik);
 
         return korisnik;
     }
 
     // GUI Poziva ovu metodu samo sa validnim podacima
-    public Korisnik? RegistrujUrednika(Korisnik korisnik) {
+    public Korisnik? RegistrujUrednika(Korisnik korisnik, string lozinka) {
         if (KorisnikRepository.MailPostoji(korisnik.Mejl)) {
             return null;
         }
 
         korisnik.Tip = TipKorisnika.Urednik;
-
         repository.Add(korisnik);
+        korisnik.PromeniLozinku(lozinka);
+        repository.Update(korisnik);
 
         return korisnik;
     }

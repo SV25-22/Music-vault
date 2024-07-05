@@ -1,4 +1,5 @@
-﻿using MusicVault.Backend.BuildingBlocks.Storage;
+﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using MusicVault.Backend.BuildingBlocks.Storage;
 using MusicVault.Backend.Model.Enums;
 using System;
 
@@ -17,16 +18,16 @@ public class Korisnik : IDAble {
     public bool Banovan { get; set; }
 
     // todo iskoristiti ovo
-    public static string SifrujLozinku(string lozinka) {
-        return lozinka + "123"; // Primitivni algoritam sifrovanja
+    public static string SifrujLozinku(string lozinka, int id) {
+        return Convert.ToBase64String(KeyDerivation.Pbkdf2(lozinka, BitConverter.GetBytes(id), KeyDerivationPrf.HMACSHA256, 10000, 256 / 8));
     }
 
     public bool ProveriLozinku(string lozinka) {
-        return SifrujLozinku(lozinka) == Lozinka;
+        return SifrujLozinku(lozinka, Id) == Lozinka;
     }
 
     public void PromeniLozinku(string lozinka) {
-        Lozinka = SifrujLozinku(lozinka);
+        Lozinka = SifrujLozinku(lozinka, Id);
     }
 
     public Korisnik() {
@@ -51,7 +52,7 @@ public class Korisnik : IDAble {
         Telefon = telefon;
         GodRodjenja = godRodjenja;
         Pol = pol;
-        Lozinka = SifrujLozinku(lozinka);
+        Lozinka = SifrujLozinku(lozinka, id);
         Javni = javni;
         Banovan = banovan;
     }

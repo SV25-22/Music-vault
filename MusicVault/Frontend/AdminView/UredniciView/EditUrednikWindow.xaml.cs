@@ -55,7 +55,7 @@ public partial class EditUrednikWindow : Window {
         if (editing)
             return korisnikController.AzurirajKorisnika(urednik);
         else
-            return korisnikController.RegistrujUrednika(Urednik.ToKorisnik()) is Korisnik korisnik && korisnik != null;
+            return korisnikController.RegistrujUrednika(Urednik.ToKorisnik(), Urednik.Lozinka) is Korisnik korisnik && korisnik != null;
     }
 
     private void BirthdayPicker_PreviewTextInput(object sender, TextCompositionEventArgs e) {

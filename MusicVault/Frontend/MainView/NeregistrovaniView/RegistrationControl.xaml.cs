@@ -38,7 +38,7 @@ public partial class RegistrationControl : UserControl {
             return;
         }
 
-        if (korisnikController.RegistrujKorisnika(Korisnik.ToKorisnik()) is Korisnik korisnik && korisnik != null) {
+        if (korisnikController.RegistrujKorisnika(Korisnik.ToKorisnik(), Korisnik.Lozinka) is Korisnik korisnik && korisnik != null) {
             MessageBox.Show("Korisnik uspešno registrovan.", "Registracija uspešna", MessageBoxButton.OK, MessageBoxImage.Information);
             mainWindow?.UlogujKorisnika(korisnik);
         } else {
