@@ -41,6 +41,10 @@ public partial class RegistrationControl : UserControl {
         if (korisnikController.RegistrujKorisnika(Korisnik.ToKorisnik(), Korisnik.Lozinka) is Korisnik korisnik && korisnik != null) {
             MessageBox.Show("Korisnik uspešno registrovan.", "Registracija uspešna", MessageBoxButton.OK, MessageBoxImage.Information);
             mainWindow?.UlogujKorisnika(korisnik);
+            LozinkaBox.Password = "";
+            Korisnik = new();
+            DataContext = null;
+            DataContext = this;
         } else {
             MessageBox.Show("Nije moguće registrovati se. Mail je već u upotrebi", "Greška registracije", MessageBoxButton.OK, MessageBoxImage.Error);
         }
